@@ -119,6 +119,16 @@ cd server && make db-studio      # Storage DB layer: Open Prisma Studio
 - **Read First**: Always read files before editing them
 - **Diagrams**: Use Mermaid or nested outlines - NEVER ASCII art/pseudographics
 
+## Task Log Rules (FEAT-XXX.tasks.md)
+
+**CRITICAL: Task logs are append-only historical records.**
+
+- **NEVER overwrite or strip detail** from existing task entries. Task logs serve as the backtracking reference for what was decided, why, and what happened during implementation.
+- **When updating task status**: Change only `Status:` line and add/update the `### Fix` section. Do NOT rewrite the `### Problem` or `### Approach` sections — they capture the original plan. You may add `### Implementation` section to save implementation nuances or lessons learned.
+- **When adding new tasks**: Append new `## FXXX-NNN` sections at the end. Never reorganize or renumber existing tasks.
+- **Fix sections**: Document what was actually done, including deviations from the approach, bugs found, and outcomes. This is the implementation record.
+- **Keep all detail**: Source file lists, line counts, adaptation notes, decisions, trade-offs — all of this is historical context that future sessions need to understand why things were done a certain way.
+
 ## Diagram Rules
 
 IMPORTANT: NEVER use ASCII/Unicode box-drawing characters for diagrams.
