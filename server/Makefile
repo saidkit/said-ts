@@ -9,44 +9,44 @@ help: ## Show this help
 
 # Development
 setup: ## Install dependencies and setup database
-	cd server && bun install && bunx prisma generate && bunx prisma db push
+	bun install && bunx prisma generate && bunx prisma db push
 
 dev: ## Start development server with hot reload
-	cd server && bun run dev
+	bun run dev
 
 build: ## Build for production
-	cd server && bun run build
+	bun run build
 
 test: ## Run all tests
-	cd server && bun test
+	bun test
 
 format: ## Format code with Biome
-	cd server && bun run format
+	bun run format
 
 lint: ## Lint code with Biome
-	cd server && bun run lint
+	bun run lint
 
 check: ## Format + lint with Biome
-	cd server && bun run check
+	bun run check
 
 clean: ## Remove build artifacts
-	rm -rf server/dist server/node_modules
+	rm -rf dist node_modules
 
 # Database
 db-generate: ## Generate Prisma client
-	cd server && bunx prisma generate
+	bunx prisma generate
 
 db-push: ## Push schema to database (dev)
-	cd server && bunx prisma db push
+	bunx prisma db push
 
 db-migrate: ## Create and apply migration
-	cd server && bunx prisma migrate dev
+	bunx prisma migrate dev
 
 db-seed: ## Seed the database
-	cd server && bun run db:seed
+	bun run db:seed
 
 db-studio: ## Open Prisma Studio
-	cd server && bunx prisma studio
+	bunx prisma studio
 
 # Docker
 docker-build: ## Build Docker image

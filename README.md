@@ -9,6 +9,7 @@ A modern, production-ready TypeScript backend template for AI-assisted developme
 curl -fsSL https://bun.sh/install | bash
 
 # Setup project
+cd server
 make setup
 
 # Start development server
@@ -36,10 +37,10 @@ template-ts-dev/
 │   │   ├── middleware/     # Hono middleware
 │   │   └── features/      # Feature modules
 │   ├── prisma/            # Database schema & migrations
-│   └── test/              # Test setup
-├── CLAUDE.md              # AI development guide
-├── Makefile               # Unified dev commands
-└── docker-compose.yml     # Docker services
+│   ├── test/              # Test setup
+│   ├── Makefile           # Development commands
+│   └── docker-compose.yml # Docker services
+└── CLAUDE.md              # AI development guide
 ```
 
 ## Stack
@@ -57,7 +58,10 @@ template-ts-dev/
 
 ## Development Commands
 
+All commands run from `server/` directory:
+
 ```bash
+cd server
 make setup          # Install deps + generate Prisma + push schema
 make dev            # Start dev server with hot reload
 make test           # Run all tests
@@ -93,7 +97,7 @@ cd my-project
 
 ### 3. Setup
 ```bash
-make setup
+cd server && make setup
 ```
 
 ### 4. Start Claude Code
@@ -114,7 +118,7 @@ Claude Code will read `CLAUDE.md`, understand the project structure, conventions
 2. You describe what you want to build
 3. Claude proposes a feature spec (`docs/features/FEAT-001-xxx.md`)
 4. You approve, Claude implements following `docs/conventions.md` patterns
-5. `make test && make format` to verify
+5. `cd server && make test && make format` to verify
 
 ## AI Development
 
@@ -122,10 +126,10 @@ Claude Code will read `CLAUDE.md`, understand the project structure, conventions
 
 ## Contributing
 
-1. **Setup**: `make setup`
+1. **Setup**: `cd server && make setup`
 2. **Branch**: `feature/FEAT-XXX-name`
 3. **Develop**: Follow [`docs/conventions.md`](docs/conventions.md)
-4. **Quality**: `make pre-commit`
+4. **Quality**: `cd server && make pre-commit`
 
 ## License
 

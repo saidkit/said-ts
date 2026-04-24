@@ -3,7 +3,7 @@
 ## Quick Reference
 **Pattern**: `FEAT-XXX-name` (e.g., `FEAT-001-auth`, `FEAT-012-payments`)
 **Branch**: `feature/FEAT-XXX-name`
-**Commands**: `make test` -> `make format` -> Update spec -> Ready for merge
+**Commands**: `cd server && make test` -> `cd server && make format` -> Update spec -> Ready for merge
 
 ## Feature Workflow
 
@@ -45,8 +45,8 @@ mkdir -p server/src/features/<name>
 ## Quality Gates
 | Gate           | Command        | Required |
 |----------------|----------------|----------|
-| Tests Pass     | `make test`    | yes      |
-| Code Formatted | `make format`  | yes      |
+| Tests Pass     | `cd server && make test`    | yes      |
+| Code Formatted | `cd server && make format`  | yes      |
 | Spec Updated   | Check FEAT-XXX | yes      |
 | No Conflicts   | `git status`   | yes      |
 

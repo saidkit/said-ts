@@ -63,7 +63,7 @@ server/src/features/xxx/
 - [ ] All functional requirements implemented
 - [ ] All technical requirements met
 - [ ] Frontend and backend tests pass
-- [ ] Code passes `make format`
+- [ ] Code passes `cd server && make format`
 - [ ] Manual testing completed
 - [ ] Documentation updated
 

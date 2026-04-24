@@ -80,12 +80,15 @@ docs/
 | ADRs              | `docs/adr/ADR-XXX-topic.md`       | Making architectural decisions |
 
 ## Development Commands
+
+All commands run from `server/` directory:
+
 ```bash
-make dev                   # Start development server (hot reload)
-make test                  # Run all tests
-make format                # Format code
-make lint                  # Lint code
-make db-studio             # Open Prisma Studio
+cd server && make dev            # Start development server (hot reload)
+cd server && make test           # Run all tests
+cd server && make format         # Format code
+cd server && make lint           # Lint code
+cd server && make db-studio      # Open Prisma Studio
 ```
 
 ## Workflow Process
@@ -107,7 +110,7 @@ make db-studio             # Open Prisma Studio
 ## Claude Code Reminders
 - **Context Management**: Start with @CLAUDE.md only, add incrementally
 - **File Loading**: Only load files you're actively editing
-- **Quality Gates**: Always run `make format` before marking complete
+- **Quality Gates**: Always run `cd server && make format` before marking complete
 - **Commit Policy**: NEVER commit without explicit user request
 - **Read First**: Always read files before editing them
 - **Diagrams**: Use Mermaid or nested outlines - NEVER ASCII art/pseudographics
@@ -128,8 +131,8 @@ Never import singletons directly — always pass through `createApp()`.
 
 ## Quality Gates
 Before marking complete:
-- [ ] Tests pass (`make test`)
-- [ ] Code formatted (`make format`)
+- [ ] Tests pass (`cd server && make test`)
+- [ ] Code formatted (`cd server && make format`)
 - [ ] Feature spec updated (if applicable)
 - [ ] No merge conflicts
 
