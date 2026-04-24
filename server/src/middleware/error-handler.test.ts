@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { Hono } from "hono";
 import pino from "pino";
-import { AppError } from "../lib/errors";
-import { createErrorHandler } from "./error-handler";
+import { AppError } from "@lib/errors.js";
+import { createErrorHandler } from "./error-handler.js";
 
 const logger = pino({ level: "silent" });
 

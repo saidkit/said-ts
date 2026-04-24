@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { execSync } from "node:child_process";
 import type { PrismaClient } from "@prisma/client";
-import { createApp } from "../../app";
+import { createApp } from "@app";
 
 let prisma: PrismaClient;
 

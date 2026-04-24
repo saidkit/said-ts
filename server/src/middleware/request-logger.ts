@@ -1,5 +1,6 @@
+// Request logging middleware
 import type { MiddlewareHandler } from "hono";
-import type { Logger } from "../lib/logger";
+import type { Logger } from "@lib/logger.js";
 
 export function requestLogger(logger: Logger): MiddlewareHandler {
   return async (c, next) => {

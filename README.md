@@ -1,136 +1,118 @@
-# Smart AI Development Template (TypeScript)
+# SAID-ts — Smart AI Development for TypeScript
 
-A modern, production-ready TypeScript backend template for AI-assisted development with structured workflows and feature-based architecture.
+Generic boilerplate for AI-native TypeScript development with structured workflows.
 
 ## Quick Start
 
 ```bash
-# Install Bun (if not installed)
+# 1. Install Bun (if not installed)
 curl -fsSL https://bun.sh/install | bash
 
-# Setup project
-cd server
-make setup
+# 2. Copy template to new project
+cp -r template/ my-project/
+cd my-project/server
 
-# Start development server
-make dev
+# 3. Install dependencies
+bun install
+
+# 4. Run tests (should pass immediately)
+make test
+
+# 5. Start developing
+# MCP server: make dev
+# Web server: bun run src/app.ts
 ```
 
-The API server will be available at http://localhost:3000
+## What's Included
 
-## Project Structure
+### Documentation (docs/)
+- **CLAUDE.md** — AI development guide (entry point for Claude Code)
+- **conventions.md** — Code patterns and import rules
+- **idea.md** / **vision.md** — Project context templates
+- **ADR-S01..S05** — Architecture decisions (monorepo, TypeScript setup, feature structure, pure service modules, dependency injection)
+- **Feature templates** — Spec and task log templates
 
-```
-template-ts-dev/
-├── docs/                  # Project documentation & architecture
-│   ├── idea.md            # Project vision
-│   ├── vision.md          # Technical architecture
-│   ├── conventions.md     # Code standards
-│   ├── features/          # Feature specifications
-│   └── adr/               # Architecture decision records
-├── server/                # Backend
-│   ├── src/
-│   │   ├── index.ts       # Entry point
-│   │   ├── app.ts         # Composition root (DI wiring)
-│   │   ├── config.ts      # Zod-validated env config
-│   │   ├── lib/           # Shared infrastructure
-│   │   ├── middleware/     # Hono middleware
-│   │   └── features/      # Feature modules
-│   ├── prisma/            # Database schema & migrations
-│   ├── test/              # Test setup
-│   ├── Makefile           # Development commands
-│   └── docker-compose.yml # Docker services
-└── CLAUDE.md              # AI development guide
-```
+### Server Seed (server/)
+- **Core**: Bun + Zod + Biome + bun:test
+- **Both layers**: MCP (index.ts) + Web (app.ts) composition roots
+- **Example feature**: `hello/` — demonstrates types, service, tools, module, schema, test
+- **Infrastructure**: `lib/errors.ts` (AppError), `lib/mcp.ts` (ok/err helpers), `config/config.ts`
+- **Path aliases**: `@lib/`, `@features/`, `@config/`
+- **Deployment**: Dockerfile + docker-compose.yml (Web + PostgreSQL)
 
-## Stack
+## Composable Layers
 
-| Concern | Choice |
-|---|---|
-| Runtime | Bun |
-| Framework | Hono + @hono/zod-validator |
-| Validation | Zod |
-| Database | Prisma (SQLite dev, PostgreSQL prod) |
-| Logging | Pino |
-| Testing | Bun test (built-in) |
-| Formatting | Biome |
-| Container | Docker + docker-compose |
+Start with Core, add layers as needed:
 
-## Development Commands
+| Layer | Add When | Key Files |
+|---|---|---|
+| **MCP** | Building Claude Code tools | `index.ts`, `<name>.tools.ts` |
+| **Web** | Building HTTP API | `app.ts`, `<name>.module.ts` |
+| **Storage: DB** | Need database | Add Prisma (see below) |
+| **Storage: FS** | Need file parsing | Add gray-matter |
+| **External API** | Wrapping 3rd-party API | Pure service module (ADR-S04) |
+| **Deployment** | Containerizing | `Dockerfile`, `docker-compose.yml` |
 
-All commands run from `server/` directory:
+## Adding Prisma (Storage: DB Layer)
 
 ```bash
 cd server
-make setup          # Install deps + generate Prisma + push schema
-make dev            # Start dev server with hot reload
-make test           # Run all tests
-make format         # Format code with Biome
-make lint           # Lint code with Biome
-make db-studio      # Open Prisma Studio
-make docker-dev     # Start with Docker Compose
+
+# 1. Install
+bun add prisma @prisma/client
+bun add -d prisma
+
+# 2. Initialize
+bunx prisma init --datasource-provider sqlite
+
+# 3. Edit prisma/schema.prisma — example starter:
 ```
 
-## Feature Pattern
+```prisma
+generator client {
+  provider = "prisma-client-js"
+}
 
-Each feature lives in `server/src/features/<name>/` with:
-- `<name>.module.ts` — Hono routes (Zod-validated)
-- `<name>.service.ts` — Business logic (receives deps via constructor)
-- `<name>.schema.ts` — Zod schemas (request/response validation)
-- `<name>.test.ts` — Tests
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
 
-See `docs/conventions.md` for the full pattern.
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-## Starting a New Project
+  @@map("users")
+}
+```
 
-### 1. Copy the template
 ```bash
-cp -r template-ts-dev my-project
-cd my-project
+# 4. Set DATABASE_URL in .env
+echo 'DATABASE_URL=file:./prisma/dev.db' >> .env
+
+# 5. Create database and generate client
+bunx prisma migrate dev --name init
+bunx prisma generate
+
+# 6. Add Makefile targets
+# db-studio: bunx prisma studio
+# db-migrate: bunx prisma migrate dev
+
+# 7. For production, update docker-compose.yml DATABASE_URL to PostgreSQL
+# and change schema.prisma provider to "postgresql"
 ```
 
-### 2. Customize identity
-- Edit `server/package.json` — change `name`
-- Edit `docs/idea.md` — describe your project vision
-- Edit `server/prisma/schema.prisma` — define your data model
-- Edit `server/.env` — set your env vars
+## After Cloning
 
-### 3. Setup
-```bash
-cd server && make setup
-```
-
-### 4. Start Claude Code
-```bash
-claude
-```
-
-The first message to Claude Code:
-```
-Read @CLAUDE.md — I'm starting a new project based on this template.
-Here's what I want to build: [describe your project in 2-3 sentences]
-```
-
-Claude Code will read `CLAUDE.md`, understand the project structure, conventions, and ADRs, then help you plan and implement features following the established patterns.
-
-### Typical first session flow
-1. Claude reads `CLAUDE.md` (automatic — it's in the project root)
-2. You describe what you want to build
-3. Claude proposes a feature spec (`docs/features/FEAT-001-xxx.md`)
-4. You approve, Claude implements following `docs/conventions.md` patterns
-5. `cd server && make test && make format` to verify
-
-## AI Development
-
-**AI Development Guide**: [`CLAUDE.md`](CLAUDE.md) — Context strategies, workflows, session patterns
-
-## Contributing
-
-1. **Setup**: `cd server && make setup`
-2. **Branch**: `feature/FEAT-XXX-name`
-3. **Develop**: Follow [`docs/conventions.md`](docs/conventions.md)
-4. **Quality**: `cd server && make pre-commit`
+1. Update `package.json` name and version
+2. Update `CLAUDE.md` project overview
+3. Update `docs/idea.md` and `docs/vision.md` with your project context
+4. Delete the `users/` example feature
+5. Create your first feature: `docs/features/FEAT-001-name.md`
 
 ## License
 
-[Your License Here]
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.

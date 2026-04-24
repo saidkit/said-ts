@@ -1,10 +1,27 @@
-import { createApp } from "./app";
+// MCP composition root — register tools here
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { loadConfig } from "@config/config.js";
+import { createPrismaClient } from "@lib/prisma.js";
+import { HealthService } from "@features/health/health.service.js";
+import { createHealthTools } from "@features/health/health.tools.js";
+import { HealthCheckInputSchema } from "@features/health/health.schema.js";
 
-const { app, config, logger } = createApp();
+const config = loadConfig();
+const prisma = createPrismaClient(config);
+const healthService = new HealthService(prisma);
+const health = createHealthTools(healthService);
 
-logger.info({ port: config.PORT, env: config.NODE_ENV }, `Server starting on port ${config.PORT}`);
+const server = new McpServer({ name: "said-ts", version: "0.1.0" });
 
-export default {
-  port: config.PORT,
-  fetch: app.fetch,
-};
+server.registerTool(
+  "health_check",
+  {
+    description: "Check service health including database connectivity",
+    inputSchema: HealthCheckInputSchema.shape,
+  },
+  health.healthCheck,
+);
+
+const transport = new StdioServerTransport();
+await server.connect(transport);

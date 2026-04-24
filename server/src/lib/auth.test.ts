@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { signToken, verifyToken } from "./auth";
+import { signToken, verifyToken } from "./auth.js";
 
 const SECRET = "test-secret-key-for-jwt";
 

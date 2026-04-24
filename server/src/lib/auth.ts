@@ -1,3 +1,4 @@
+// JWT sign/verify helpers (jose)
 import { SignJWT, jwtVerify } from "jose";
 
 export interface TokenPayload {

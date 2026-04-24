@@ -1,6 +1,7 @@
+// Bearer token auth middleware (JWT)
 import type { MiddlewareHandler } from "hono";
-import { type TokenPayload, verifyToken } from "../lib/auth";
-import { AppError } from "../lib/errors";
+import { type TokenPayload, verifyToken } from "@lib/auth.js";
+import { AppError } from "@lib/errors.js";
 
 declare module "hono" {
   interface ContextVariableMap {

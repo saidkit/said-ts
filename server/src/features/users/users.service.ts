@@ -1,6 +1,7 @@
+// Users feature — business logic (CRUD)
 import type { PrismaClient } from "@prisma/client";
-import { AppError } from "../../lib/errors";
-import type { CreateUserInput } from "./users.schema";
+import { AppError } from "@lib/errors.js";
+import type { CreateUserInput } from "./users.schema.js";
 
 export class UsersService {
   constructor(private prisma: PrismaClient) {}

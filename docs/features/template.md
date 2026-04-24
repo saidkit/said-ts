@@ -12,16 +12,27 @@
 - [ ] [Core functionality requirement 3]
 
 ### Technical Requirements
-- [ ] API endpoint: [METHOD] /api/v1/path
-- [ ] Database: [Prisma model changes]
-- [ ] Authentication: [Auth requirements]
-- [ ] Performance: [Response time/load requirements]
+<!-- Include sections relevant to your project's active layers (see CLAUDE.md) -->
 
-### UI/UX Requirements
+**MCP Tools** (if MCP layer):
+- [ ] Tool: `[tool_name]` — input: [schema], output: [shape], side effects: [files/APIs]
+
+**API Endpoints** (if Web layer):
+- [ ] [METHOD] /api/v1/path — [description]
+
+**Storage** (if applicable):
+- [ ] Filesystem: [paths written/read]
+- [ ] Database: [Prisma model changes]
+
+**External APIs** (if applicable):
+- [ ] [API name]: [what it's used for, auth method]
+
+**Performance:**
+- [ ] [Response time/throughput requirements]
+
+### UI/UX Requirements (if Frontend layer)
 - [ ] [UI component/screen description]
 - [ ] [User interaction flow]
-- [ ] [Responsive design requirements]
-- [ ] [Error handling/validation]
 
 ## Acceptance Criteria
 ```gherkin
@@ -35,37 +46,41 @@ Then [additional outcome]
 
 ## Implementation Plan
 
-### Backend (`server/src/features/xxx/`)
-Structure: See ADR-S03 for full details.
+### Structure
+<!-- Use the pattern matching your active layer. See ADR-S03. -->
 
+**MCP layer:**
 ```
-server/src/features/xxx/
-├── xxx.schema.ts      # Zod schemas (request/response)
-├── xxx.service.ts     # Business logic (Prisma queries)
-├── xxx.module.ts      # Hono routes (factory function)
-└── xxx.test.ts        # Tests
+server/src/
+├── <domain>.ts            # Tool handlers
+└── <domain>.test.ts       # Tests
 ```
 
-- [ ] Create feature directory structure
-- [ ] Schema: Define Zod schemas in `xxx.schema.ts`
-- [ ] Service: Implement business logic in `xxx.service.ts`
-- [ ] Module: Create route factory in `xxx.module.ts`
-- [ ] Wire in `app.ts`: create service, mount module via `app.route()`
-- [ ] Tests: Feature test coverage in `xxx.test.ts`
+**Web layer:**
+```
+server/src/features/<name>/
+├── <name>.module.ts       # Hono routes (factory function)
+├── <name>.service.ts      # Business logic
+├── <name>.schema.ts       # Zod schemas
+└── <name>.test.ts         # Tests
+```
 
-### Frontend (`ui/src/features/xxx/`)
-- [ ] Components: [React components]
-- [ ] Hooks: [Custom hooks]
-- [ ] Utils: [Helper functions]
-- [ ] Tests: [Frontend test coverage]
+### Steps
+- [ ] Create source files following active layer pattern
+- [ ] Implement schemas (Zod)
+- [ ] Implement business logic (service/handlers)
+- [ ] Wire in composition root (`index.ts` for MCP / `app.ts` for Web)
+- [ ] Write tests
+- [ ] Verify functionality
 
 ## Definition of Done
 - [ ] All functional requirements implemented
 - [ ] All technical requirements met
-- [ ] Frontend and backend tests pass
-- [ ] Code passes `cd server && make format`
+- [ ] Tests pass (`cd server && make test`)
+- [ ] Code formatted (`cd server && make format`)
+- [ ] Type-check passes (`cd server && make typecheck`)
 - [ ] Manual testing completed
-- [ ] Documentation updated
+- [ ] Feature spec updated
 
 ## Feature Tasks
 
@@ -86,7 +101,7 @@ Detailed task log: [FEAT-XXX.tasks.md](FEAT-XXX.tasks.md)
 - **Issues:** [Link to GitHub issues/tickets]
 
 ## Progress Tracking
-**Status:** In Progress
+**Status:** Not Started
 **Assigned:** [Developer name]
 
 ### Completed Tasks

@@ -1,7 +1,8 @@
+// Global error handler — converts AppError to JSON responses
 import type { ErrorHandler as HonoErrorHandler } from "hono";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-import { AppError } from "../lib/errors";
-import type { Logger } from "../lib/logger";
+import { AppError } from "@lib/errors.js";
+import type { Logger } from "@lib/logger.js";
 
 export function createErrorHandler(logger: Logger): HonoErrorHandler {
   return (err, c) => {

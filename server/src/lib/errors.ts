@@ -1,3 +1,4 @@
+// Typed error class — works with both Web (status codes) and MCP (error codes)
 export class AppError extends Error {
   constructor(
     public readonly statusCode: number,
@@ -9,7 +10,7 @@ export class AppError extends Error {
   }
 
   static badRequest(message: string, code?: string) {
-    return new AppError(400, message, code);
+    return new AppError(400, message, code ?? "BAD_REQUEST");
   }
 
   static unauthorized(message = "Unauthorized") {
@@ -26,5 +27,9 @@ export class AppError extends Error {
 
   static internal(message = "Internal server error") {
     return new AppError(500, message, "INTERNAL_ERROR");
+  }
+
+  toJSON() {
+    return { error: this.message, code: this.code, statusCode: this.statusCode };
   }
 }

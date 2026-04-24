@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { AppError } from "./errors";
+import { AppError } from "./errors.js";
 
 describe("AppError", () => {
   it("creates error with status code and message", () => {
@@ -40,5 +40,13 @@ describe("AppError", () => {
     const err = AppError.internal();
     expect(err.statusCode).toBe(500);
     expect(err.code).toBe("INTERNAL_ERROR");
+  });
+
+  it("toJSON serializes for MCP/API responses", () => {
+    const err = AppError.notFound("Thing not found");
+    const json = err.toJSON();
+    expect(json.error).toBe("Thing not found");
+    expect(json.code).toBe("NOT_FOUND");
+    expect(json.statusCode).toBe(404);
   });
 });

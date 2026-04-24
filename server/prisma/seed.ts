@@ -8,19 +8,13 @@ async function main() {
   await prisma.user.upsert({
     where: { email: "admin@example.com" },
     update: {},
-    create: {
-      email: "admin@example.com",
-      name: "Admin User",
-    },
+    create: { email: "admin@example.com", name: "Admin User" },
   });
 
   await prisma.user.upsert({
     where: { email: "user@example.com" },
     update: {},
-    create: {
-      email: "user@example.com",
-      name: "Regular User",
-    },
+    create: { email: "user@example.com", name: "Regular User" },
   });
 
   console.log("Seeding complete.");

@@ -1,8 +1,9 @@
+// Users feature — Web (Hono) entry point
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import type { MiddlewareHandler } from "hono";
-import { createUserSchema, userIdParamSchema } from "./users.schema";
-import type { UsersService } from "./users.service";
+import { createUserSchema, userIdParamSchema } from "./users.schema.js";
+import type { UsersService } from "./users.service.js";
 
 export function createUsersModule(service: UsersService, authMiddleware?: MiddlewareHandler) {
   const app = new Hono();

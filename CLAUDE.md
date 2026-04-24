@@ -1,9 +1,9 @@
 # Claude.md - AI Development Guide
 
 ## Project Overview
-**Project**: Smart AI Development Template (TypeScript)
-**Vision**: Boilerplate for AI-assisted development with structured workflows
-**Architecture**: Monorepo (Bun + Hono + Prisma) with feature-based development
+**Project**: SAID-ts - Smart AI Development for TypeScript
+**Vision**: Generic boilerplate for AI-native TypeScript development with structured workflows
+**Architecture**: Composable layers — Core (Bun + Zod + Biome) + optional: Web, MCP, Storage, External API, Skills
 
 ## Quick Start
 ```bash
@@ -18,6 +18,8 @@
 | Project structure           | `@docs/adr/ADR-S01-monorepo-structure.md`     |
 | TS setup / frameworks       | `@docs/adr/ADR-S02-typescript-project-setup.md` |
 | New business feature        | `@docs/adr/ADR-S03-feature-structure.md`      |
+| External API wrappers       | `@docs/adr/ADR-S04-pure-service-modules.md`   |
+| DI: deps, mocks, stubs      | `@docs/adr/ADR-S05-dependency-injection.md`    |
 | Feature spec                | `@docs/features/template.md`                  |
 
 ## Context Loading Strategy
@@ -71,24 +73,26 @@ docs/
 ## Navigation Map
 | Type              | Location                          | Load When                    |
 |-------------------|-----------------------------------|------------------------------|
-| Features          | `docs/features/FEAT-XXX-name.md`  | Working on that feature      |
-| Feature code      | `server/src/features/xxx/`        | Editing feature code         |
+| Features          | `docs/features/FEAT-XXX-name.md` | Working on that feature      |
+| Feature code      | `server/src/features/<name>/`     | Editing feature code         |
 | Infrastructure    | `server/src/lib/`                 | Editing shared libraries     |
-| Middleware        | `server/src/middleware/`          | Editing middleware           |
-| Database schema   | `server/prisma/schema.prisma`     | Changing data model          |
+| Configuration     | `server/src/config/`              | Editing config resolution    |
+| Middleware        | `server/src/middleware/`          | Web layer: editing middleware |
+| Database schema   | `server/prisma/schema.prisma`     | Storage DB layer: changing data model |
 | Tests             | Alongside code (`*.test.ts`)      | Writing/debugging tests      |
-| ADRs              | `docs/adr/ADR-XXX-topic.md`       | Making architectural decisions |
+| ADRs              | `docs/adr/ADR-XXX-topic.md`      | Making architectural decisions |
 
 ## Development Commands
 
 All commands run from `server/` directory:
 
 ```bash
-cd server && make dev            # Start development server (hot reload)
+cd server && make dev            # Start dev server (Web) or MCP server
 cd server && make test           # Run all tests
-cd server && make format         # Format code
-cd server && make lint           # Lint code
-cd server && make db-studio      # Open Prisma Studio
+cd server && make format         # Format code (Biome)
+cd server && make lint           # Lint code (Biome)
+cd server && make typecheck      # Type-check (tsc --noEmit, catches deprecations)
+cd server && make db-studio      # Storage DB layer: Open Prisma Studio
 ```
 
 ## Workflow Process
@@ -110,7 +114,7 @@ cd server && make db-studio      # Open Prisma Studio
 ## Claude Code Reminders
 - **Context Management**: Start with @CLAUDE.md only, add incrementally
 - **File Loading**: Only load files you're actively editing
-- **Quality Gates**: Always run `cd server && make format` before marking complete
+- **Quality Gates**: Always run `cd server && make format && make typecheck` before marking complete
 - **Commit Policy**: NEVER commit without explicit user request
 - **Read First**: Always read files before editing them
 - **Diagrams**: Use Mermaid or nested outlines - NEVER ASCII art/pseudographics
@@ -124,15 +128,19 @@ Use instead:
 
 ## Critical Rule: Dependency Injection
 
-**All dependencies flow through the composition root (`app.ts`).**
+**All dependencies flow through the composition root (entry point file).**
 
 Services receive dependencies via constructor injection. Modules are factory functions.
-Never import singletons directly — always pass through `createApp()`.
+Never import singletons directly — always pass through the composition root.
+
+- **Web layer**: composition root is `app.ts` via `createApp()`
+- **MCP layer**: composition root is `index.ts` where services are created and tools registered
 
 ## Quality Gates
 Before marking complete:
 - [ ] Tests pass (`cd server && make test`)
 - [ ] Code formatted (`cd server && make format`)
+- [ ] Type-check passes (`cd server && make typecheck`)
 - [ ] Feature spec updated (if applicable)
 - [ ] No merge conflicts
 

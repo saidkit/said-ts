@@ -2,32 +2,28 @@
 
 ## System Design
 
-Modern TypeScript backend with feature-based architecture, designed for AI-assisted development.
+TypeScript backend with feature-based architecture, designed for AI-native development.
 
 ## Technology Stack
 
 - **Runtime**: Bun (native TS, fast startup)
-- **Framework**: Hono + @hono/zod-validator (typed request validation)
-- **Validation**: Zod v4 (runtime + compile-time)
-- **Database**: Prisma (SQLite dev, PostgreSQL prod)
+- **Validation**: Zod (runtime + compile-time type safety)
 - **Logging**: Pino (structured JSON)
-- **Testing**: Bun test (built-in)
+- **Testing**: bun:test (built-in, zero config)
 - **Formatting**: Biome (Rust-based)
+
+### Optional Layers (add as needed)
+- **MCP**: @modelcontextprotocol/sdk — Claude Code tools
+- **Web**: Hono + @hono/zod-validator — HTTP API
+- **Database**: Prisma (SQLite dev, PostgreSQL prod)
 - **Container**: Docker (multi-stage Bun build)
 
 ## Core Principles
 
-- **Type Safety**: End-to-end types from Zod schema to Prisma query
-- **Composition Root**: All DI in `app.ts`, no global singletons
-- **Feature-Based**: Each feature is self-contained (module + service + schema)
-- **Developer Experience**: Hot reload, fast tests, Prisma Studio
-
-## Data Flow
-
-```
-Request -> Middleware (auth, logging) -> Module (route matching, Zod validation)
-    -> Service (business logic) -> Prisma (database) -> Response
-```
+- **Type Safety**: End-to-end types from Zod schemas
+- **Composition Root**: All DI in entry point, no global singletons
+- **Feature-Based**: Each feature is self-contained in `features/<name>/`
+- **Developer Experience**: Hot reload, fast tests, path aliases
 
 ## Architecture Decisions
 

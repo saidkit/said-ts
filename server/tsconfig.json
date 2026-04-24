@@ -8,14 +8,19 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
     "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "types": ["bun-types"],
     "paths": {
-      "@/*": ["./src/*"]
-    },
-    "types": ["bun-types"]
+      "@lib/*": ["./src/lib/*"],
+      "@features/*": ["./src/features/*"],
+      "@config/*": ["./src/config/*"],
+      "@app": ["./src/app.ts"]
+    }
   },
-  "include": ["src/**/*.ts", "prisma/**/*.ts", "test/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

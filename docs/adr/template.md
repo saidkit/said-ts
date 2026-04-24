@@ -1,7 +1,7 @@
 # ADR-XXX: [Decision Title]
 
-**Date:** YYYY-MM-DD  
-**Status:** Proposed | Accepted | Rejected | Deprecated  
+**Date:** YYYY-MM-DD
+**Status:** Proposed | Accepted | Rejected | Deprecated
 **Deciders:** [Name(s)]
 
 ## Problem
@@ -10,7 +10,7 @@
 
 **Context:**
 - Current situation
-- Technical constraints  
+- Technical constraints
 - Business requirements
 
 ## Decision
@@ -23,23 +23,23 @@
 
 | Option | Pros | Cons | Decision |
 |--------|------|------|----------|
-| Option A | [Benefits] | [Drawbacks] | ✅ Chosen |
-| Option B | [Benefits] | [Drawbacks] | ❌ Rejected |
-| Option C | [Benefits] | [Drawbacks] | ❌ Rejected |
+| Option A | [Benefits] | [Drawbacks] | Chosen |
+| Option B | [Benefits] | [Drawbacks] | Rejected |
 
 ## Implementation
 
 ### Code Changes
 ```
-server/src/app/          # [Backend changes]
+server/src/features/     # Feature changes
+server/src/lib/          # Infrastructure changes
 ui/src/                  # [Frontend changes]
-docs/features/           # [Update affected FEAT-XXX files]
+docs/features/           # Update affected FEAT-XXX files
 ```
 
 ### Action Items
 - [ ] [Specific implementation task 1]
 - [ ] [Specific implementation task 2]
-- [ ] [Update feature specs that are affected]
+- [ ] [Update affected feature specs]
 - [ ] [Update documentation]
 
 ## Consequences
@@ -58,8 +58,8 @@ docs/features/           # [Update affected FEAT-XXX files]
 
 ## Related
 
-**Features:** [FEAT-XXX files affected by this decision]  
-**ADRs:** [Related architectural decisions]  
+**Features:** [FEAT-XXX files affected by this decision]
+**ADRs:** [Related architectural decisions]
 **References:** [External links, RFCs, etc.]
 
 ---

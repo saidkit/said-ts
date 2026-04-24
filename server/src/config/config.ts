@@ -1,3 +1,4 @@
+// Configuration from environment variables with Zod validation
 import { z } from "zod";
 
 const envSchema = z.object({
@@ -13,5 +14,3 @@ export type Config = z.infer<typeof envSchema>;
 export function loadConfig(): Config {
   return envSchema.parse(process.env);
 }
-
-export const config = loadConfig();

@@ -9,3 +9,7 @@ export const healthResponseSchema = z.object({
 });
 
 export type HealthResponse = z.infer<typeof healthResponseSchema>;
+
+// MCP tool input — no required args
+export const HealthCheckInputSchema = z.object({});
+export type HealthCheckInput = z.infer<typeof HealthCheckInputSchema>;

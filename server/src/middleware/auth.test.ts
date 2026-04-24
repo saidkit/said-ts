@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { Hono } from "hono";
-import { signToken } from "../lib/auth";
-import { bearerAuth } from "./auth";
-import { createErrorHandler } from "./error-handler";
+import { signToken } from "@lib/auth.js";
+import { bearerAuth } from "./auth.js";
+import { createErrorHandler } from "./error-handler.js";
 import pino from "pino";
 
 const SECRET = "test-middleware-secret";

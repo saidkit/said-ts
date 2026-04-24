@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { loadConfig } from "./config";
+import { loadConfig } from "./config.js";
 
 describe("Config", () => {
   it("loads config from environment with defaults", () => {

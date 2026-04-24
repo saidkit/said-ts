@@ -1,5 +1,6 @@
+// Health feature — Web (Hono) entry point
 import { Hono } from "hono";
-import type { HealthService } from "./health.service";
+import type { HealthService } from "./health.service.js";
 
 export function createHealthModule(service: HealthService) {
   const app = new Hono();

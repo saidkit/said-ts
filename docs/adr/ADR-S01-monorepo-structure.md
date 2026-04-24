@@ -1,89 +1,116 @@
-# ADR-S01: Monorepo Structure for Full-Stack Development
+# ADR-S01: Monorepo Structure
 
-**Date:** 2025-12-16  
-**Status:** Accepted  
+**Date:** 2026-04-22
+**Status:** Accepted
 **Deciders:** Development Team
 
 ## Problem
 
-Choose repository structure for a full-stack application (Go backend + React frontend) with shared documentation and tooling.
+Choose repository structure for a TypeScript application that may include multiple components: server (Web API and/or MCP server), frontend, documentation, and tooling.
 
 **Context:**
 - Single developer/small team environment
-- Backend and frontend often change together
+- Components often change together (server + docs, tools + skills)
 - Need shared types, utilities, and documentation
-- Want simple development setup and deployment
+- Want simple development setup
 
 ## Decision
 
 **Chosen Option:** Service-oriented Monorepo
 
-**Why:** Enables atomic cross-service changes, shared tooling, and simplified development workflow for coordinated full-stack features.
+**Why:** Enables atomic cross-component changes, shared tooling, and simplified development workflow. All project layers (server, docs, context, skills) co-located.
 
 ## Alternatives Considered
 
 | Option     | Pros                                         | Cons                                       | Decision    |
 |------------|----------------------------------------------|--------------------------------------------|-------------|
-| Monorepo   | Atomic commits, shared tooling, simple setup | Large repo size, potential merge conflicts | ✅ Chosen   |
-| Multi-repo | Independent deployments, team autonomy       | Complex coordination, tooling duplication  | ❌ Rejected |
-| Monolith   | Simple deployment, tight coupling            | Hard to scale, technology lock-in          | ❌ Rejected |
+| Monorepo   | Atomic commits, shared tooling, simple setup | Large repo size, potential merge conflicts | Chosen   |
+| Multi-repo | Independent deployments, team autonomy       | Complex coordination, tooling duplication  | Rejected |
 
 ## Implementation
 
-### Code Changes
+### Project Layout
+
 ```
 project/
-├── server/                  # Go backend (Fiber)
-│   ├── cmd/app/          # Application entrypoints
-│   ├── internal/            # Private application code
-│   ├── pkg/                 # Public packages
-│   ├── go.mod               # Go module definition
-│   └── Dockerfile
-├── ui/                      # React frontend
-│   ├── src/
-│   ├── public/
-│   └── package.json
-├── docs/                    # Shared documentation
-│   ├── features/
-│   ├── adr/
-│   └── conventions.md
-├── Makefile                 # Shared commands
-├── docker-compose.yml       # Local development
-└── CLAUDE.md                # AI development guide
+├── server/                  # Application code
+│   ├── src/                 # Source code
+│   ├── package.json         # Dependencies
+│   └── tsconfig.json        # TypeScript config
+├── docs/                 # AI development context (SAID-ts)
+│   ├── idea.md              # Business context (why)
+│   ├── vision.md            # Technical architecture (what)
+│   ├── conventions.md       # Code patterns (how)
+│   ├── features/            # Feature specs + task logs
+│   ├── adr/                 # Architecture decisions
+│   └── working/             # Session-specific context
+├── CLAUDE.md                # AI development guide (entry point)
+└── README.md                # Project README
+```
+
+### Layer-Specific Additions
+
+When **Web** layer is active:
+```
+server/
+├── src/
+│   ├── app.ts                # Composition root (Hono)
+│   ├── features/             # Feature modules
+│   │   └── <name>/           # <name>.module.ts, <name>.service.ts, <name>.schema.ts, <name>.tools.ts, <name>.test.ts
+│   ├── lib/                  # Domain-agnostic utilities
+│   └── middleware/           # Hono middleware
+├── prisma/                   # Database schema + migrations (if Storage: DB)
+└── Dockerfile                # Container build (if Deployment)
+```
+
+When **MCP** layer is active:
+```
+server/
+├── src/
+│   ├── index.ts              # Composition root (McpServer)
+│   ├── config.ts             # Configuration
+│   ├── lib/                  # Domain-agnostic utilities
+│   └── features/             # Feature modules
+│       └── <name>/           # <name>.tools.ts, <name>.service.ts, <name>.schema.ts, <name>.test.ts
+└── <name>.config.json        # MCP-specific config
+```
+
+When **Frontend** layer is active:
+```
+ui/                           # React SPA
+├── src/
+├── public/
+└── package.json
+```
+
+When **MCP Skills** layer is active:
+```
+.claude/commands/             # Claude Code slash commands
+└── <skill>.md
 ```
 
 ### Action Items
-- [x] Create monorepo structure with server/ui separation
-- [x] Set up shared documentation in docs/
-- [x] Create unified development commands in Makefile
-- [x] Configure Docker Compose for local development
+- [x] Create monorepo structure with server/ separation
+- [x] Set up context system (SAID-ts) in docs/
+- [x] Create CLAUDE.md as AI development entry point
 
 ## Consequences
 
 **Positive:**
-- Atomic changes across frontend/backend
+- Atomic changes across all components
 - Shared tooling and CI/CD pipeline
 - Single clone for full development environment
-- Easy code sharing between services
+- Context docs live next to the code they describe
 
 **Negative:**
 - Larger repository size
 - Potential merge conflicts in shared files
-- Single point of failure for entire codebase
 
 **Monitoring:**
 - Repository size stays manageable (< 100MB)
 - Development setup time (< 5 minutes from clone to running)
-- Cross-service feature development velocity
 
 ## Related
 
-**Features:** All FEAT-XXX files benefit from coordinated development  
-**ADRs:** Foundation for all subsequent architectural decisions  
-**References:** [Monorepo best practices](https://monorepo.tools/)
-
----
-
-## Decision Rationale
-
-This structure supports the project's core principle of **AI-assisted feature development** where backend APIs and frontend components are developed together as cohesive features, documented in single FEAT-XXX specifications.
+**Features:** All FEAT-XXX files benefit from coordinated development
+**ADRs:** Foundation for all subsequent architectural decisions

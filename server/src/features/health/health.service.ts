@@ -1,5 +1,6 @@
+// Health check service — shared by Web and MCP entry points
 import type { PrismaClient } from "@prisma/client";
-import type { HealthResponse } from "./health.schema";
+import type { HealthResponse } from "./health.schema.js";
 
 const startTime = Date.now();
 

@@ -1,6 +1,6 @@
-.PHONY: help setup dev build test format lint check clean \
+.PHONY: help setup dev dev-web start build test format lint check typecheck clean \
        db-generate db-push db-migrate db-seed db-studio \
-       docker-build docker-dev docker-down
+       docker-build docker-dev docker-down pre-commit
 
 # Default
 help: ## Show this help
@@ -11,8 +11,14 @@ help: ## Show this help
 setup: ## Install dependencies and setup database
 	bun install && bunx prisma generate && bunx prisma db push
 
-dev: ## Start development server with hot reload
+dev: ## Start MCP server with hot reload
 	bun run dev
+
+dev-web: ## Start Web server with hot reload
+	bun run dev:web
+
+start: ## Start server (production, no hot reload)
+	bun run start
 
 build: ## Build for production
 	bun run build
@@ -28,6 +34,9 @@ lint: ## Lint code with Biome
 
 check: ## Format + lint with Biome
 	bun run check
+
+typecheck: ## Type-check with TypeScript
+	bunx tsc --noEmit
 
 clean: ## Remove build artifacts
 	rm -rf dist node_modules
@@ -59,4 +68,4 @@ docker-down: ## Stop all services
 	docker compose down
 
 # Quality gates
-pre-commit: format lint test ## Run all quality checks
+pre-commit: format lint typecheck test ## Run all quality checks

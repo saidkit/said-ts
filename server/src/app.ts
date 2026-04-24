@@ -1,18 +1,17 @@
+// Web composition root — all DI wiring happens here
 import type { PrismaClient } from "@prisma/client";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-
-import { type Config, loadConfig } from "./config";
-import { type Logger, createLogger } from "./lib/logger";
-import { createPrismaClient } from "./lib/prisma";
-import { bearerAuth } from "./middleware/auth";
-import { createErrorHandler } from "./middleware/error-handler";
-import { requestLogger } from "./middleware/request-logger";
-
-import { createHealthModule } from "./features/health/health.module";
-import { HealthService } from "./features/health/health.service";
-import { createUsersModule } from "./features/users/users.module";
-import { UsersService } from "./features/users/users.service";
+import { type Config, loadConfig } from "@config/config.js";
+import { type Logger, createLogger } from "@lib/logger.js";
+import { createPrismaClient } from "@lib/prisma.js";
+import { bearerAuth } from "./middleware/auth.js";
+import { createErrorHandler } from "./middleware/error-handler.js";
+import { requestLogger } from "./middleware/request-logger.js";
+import { createHealthModule } from "@features/health/health.module.js";
+import { HealthService } from "@features/health/health.service.js";
+import { createUsersModule } from "@features/users/users.module.js";
+import { UsersService } from "@features/users/users.service.js";
 
 export interface AppDeps {
   config: Config;
@@ -41,7 +40,7 @@ export function createApp(overrides?: Partial<AppDeps>) {
   app.onError(createErrorHandler(logger));
 
   // Root endpoint
-  app.get("/", (c) => c.json({ status: "ok", name: "template-ts-dev" }));
+  app.get("/", (c) => c.json({ status: "ok", name: "said-ts" }));
 
   // Mount features
   const healthService = new HealthService(prisma);

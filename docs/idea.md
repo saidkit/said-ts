@@ -1,6 +1,6 @@
 # Project Idea
 
-This is a template project. Replace this file with your actual project vision and business context.
+Replace this file with your project's business context.
 
 ## What problem does this solve?
 

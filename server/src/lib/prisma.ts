@@ -1,5 +1,6 @@
+// Prisma client factory — singleton in dev, fresh in prod
 import { PrismaClient } from "@prisma/client";
-import type { Config } from "../config";
+import type { Config } from "@config/config.js";
 
 const globalForPrisma = globalThis as unknown as {
   prisma?: PrismaClient;
