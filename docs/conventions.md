@@ -48,7 +48,6 @@ server/src/features/<name>/
 ├── <name>.types.ts        # Domain-owned interfaces (when needed)
 ├── <name>.service.ts      # Business logic (constructor DI)
 ├── <name>.module.ts       # Hono routes (factory function)
-├── <name>.tools.ts        # MCP tool factory (when needed)
 ├── <name>.schema.ts       # Zod schemas (request/response)
 └── <name>.test.ts         # Tests
 ```
