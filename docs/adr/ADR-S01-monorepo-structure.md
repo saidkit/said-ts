@@ -56,7 +56,7 @@ server/
 ├── src/
 │   ├── app.ts                # Composition root (Hono)
 │   ├── features/             # Feature modules
-│   │   └── <name>/           # <name>.module.ts, <name>.service.ts, <name>.schema.ts, <name>.tools.ts, <name>.test.ts
+│   │   └── <name>/           # <name>.module.ts, <name>.service.ts, <name>.schema.ts, <name>.test.ts
 │   ├── lib/                  # Domain-agnostic utilities
 │   └── middleware/           # Hono middleware
 ├── prisma/                   # Database schema + migrations (if Storage: DB)
