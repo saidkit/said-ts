@@ -5,6 +5,8 @@
 **Vision**: Generic boilerplate for AI-native TypeScript development with structured workflows
 **Architecture**: Composable layers — Core (Bun + Zod + Biome) + optional: Web, MCP, Storage, External API, Skills
 
+**Stackable layers**: Other layers (e.g., a frontend SPA) may be added as sibling directories with their own `CLAUDE.md`. Each stacked layer is fully self-contained — see that directory's `CLAUDE.md` when working there.
+
 ## Quick Start
 ```bash
 @CLAUDE.md                         # Start with this file only
@@ -56,6 +58,8 @@
 + @server/src/lib/ + @server/src/middleware/
 ```
 
+> **Stacked layers** (e.g., `ui/`): If working in a sibling layer directory, use that layer's `CLAUDE.md` as the entry point instead.
+
 ## File Structure
 ```
 docs/
@@ -71,6 +75,7 @@ docs/
 ```
 
 ## Navigation Map
+
 | Type              | Location                          | Load When                    |
 |-------------------|-----------------------------------|------------------------------|
 | Features          | `docs/features/FEAT-XXX-name.md` | Working on that feature      |

@@ -6,7 +6,7 @@
 
 ## Problem
 
-Choose repository structure for a TypeScript application that may include multiple components: server (Web API and/or MCP server), frontend, documentation, and tooling.
+Choose repository structure for a TypeScript application that may include multiple components: server (Web API and/or MCP server), documentation, and tooling. Additional layers (e.g., a frontend SPA) may be stacked into the project as sibling directories at use-time.
 
 **Context:**
 - Single developer/small team environment
@@ -75,19 +75,24 @@ server/
 └── <name>.config.json        # MCP-specific config
 ```
 
-When **Frontend** layer is active:
-```
-ui/                           # React SPA
-├── src/
-├── public/
-└── package.json
-```
-
 When **MCP Skills** layer is active:
 ```
 .claude/commands/             # Claude Code slash commands
 └── <skill>.md
 ```
+
+### Documentation Ownership
+
+When creating or placing documentation, follow these rules:
+
+- **ADRs** → `docs/adr/` — server/monorepo architectural decisions
+- **Feature specs** → `docs/features/` — feature descriptions and acceptance criteria
+- **Conventions** → `docs/conventions.md` — server coding patterns
+- **Vision, idea** → `docs/` — project-level context
+
+**Stacked layers** (e.g., a frontend SPA cloned as `ui/`): each stacked layer is fully self-contained with its own `CLAUDE.md`, `docs/adr/`, `docs/conventions.md`, `docs/features/`. The base project (this repo) does not document layer specifics — refer to the stacked layer's `CLAUDE.md` when working there.
+
+**Context loading rule:** server work → load `@CLAUDE.md` + `@docs/`. Stacked-layer work → `cd <layer>/` and load that layer's `CLAUDE.md`. Never duplicate content between base and stacked layers.
 
 ### Action Items
 - [x] Create monorepo structure with server/ separation

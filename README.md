@@ -40,6 +40,14 @@ make test
 - **Path aliases**: `@lib/`, `@features/`, `@config/`
 - **Deployment**: Dockerfile + docker-compose.yml (Web + PostgreSQL)
 
+### Stacking a Frontend Layer
+Need a UI? Clone [saidui](https://github.com/your-org/saidui) into `ui/`:
+```bash
+cd my-project
+git clone git@github.com:your-org/saidui.git ui
+```
+saidui is a self-contained React SPA template — own CLAUDE.md, conventions, ADRs, scaffold. Stacks into any backend.
+
 ## Composable Layers
 
 Start with Core, add layers as needed:
@@ -107,11 +115,12 @@ bunx prisma generate
 
 ## After Cloning
 
-1. Update `package.json` name and version
+1. Update `server/package.json` name and version
 2. Update `CLAUDE.md` project overview
 3. Update `docs/idea.md` and `docs/vision.md` with your project context
-4. Delete the `users/` example feature
+4. Delete the example feature (`server/src/features/users/`)
 5. Create your first feature: `docs/features/FEAT-001-name.md`
+6. (Optional) Clone saidui into `ui/` if you need a frontend
 
 ## License
 

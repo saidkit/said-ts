@@ -32,7 +32,6 @@
 ```
 server/src/features/     # Feature changes
 server/src/lib/          # Infrastructure changes
-ui/src/                  # [Frontend changes]
 docs/features/           # Update affected FEAT-XXX files
 ```
 

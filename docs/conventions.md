@@ -330,11 +330,11 @@ export type CreateOrderInput = z.infer<typeof createOrderSchema>;
 Before marking tasks complete:
 - [ ] Tests pass (`bun test`)
 - [ ] Code formatted (`bun run format`)
-- [ ] Type-check passes (`bunx tsc --noEmit`) — catches deprecations and type errors
+- [ ] Type-check passes (`bunx tsc --noEmit`)
 - [ ] Zod schemas validate at boundaries
 
 ---
 
 **References:**
-- `@docs/adr/ADR-S02-typescript-project-setup.md` — Stack decisions
+- `@docs/adr/ADR-S02-typescript-project-setup.md` — Server stack decisions
 - `@docs/adr/ADR-S03-feature-structure.md` — Feature pattern details

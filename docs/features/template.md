@@ -30,10 +30,6 @@
 **Performance:**
 - [ ] [Response time/throughput requirements]
 
-### UI/UX Requirements (if Frontend layer)
-- [ ] [UI component/screen description]
-- [ ] [User interaction flow]
-
 ## Acceptance Criteria
 ```gherkin
 Given [initial state]
@@ -64,6 +60,8 @@ server/src/features/<name>/
 ├── <name>.schema.ts       # Zod schemas
 └── <name>.test.ts         # Tests
 ```
+
+> If a stacked layer (e.g., a frontend cloned as `ui/`) is also implementing this feature, see that layer's own feature template for its file structure.
 
 ### Steps
 - [ ] Create source files following active layer pattern

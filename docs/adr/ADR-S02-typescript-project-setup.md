@@ -54,12 +54,6 @@ Choose the runtime, tooling, and per-layer dependencies for a TypeScript applica
 | Frontmatter | gray-matter | Standard YAML frontmatter parser for markdown |
 | File discovery | glob | Reliable file pattern matching |
 
-### Layer: Frontend
-
-| Concern | Choice | Why |
-|---|---|---|
-| Framework | React + Vite | Fast HMR, TypeScript-native, large ecosystem |
-
 ### Layer: Deployment
 
 | Concern | Choice | Why |
