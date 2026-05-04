@@ -37,13 +37,14 @@ project/
 │   ├── src/                 # Source code
 │   ├── package.json         # Dependencies
 │   └── tsconfig.json        # TypeScript config
-├── docs/                 # AI development context (SAID-ts)
+├── docs/                    # AI development context (SAID-ts)
 │   ├── idea.md              # Business context (why)
 │   ├── vision.md            # Technical architecture (what)
 │   ├── conventions.md       # Code patterns (how)
 │   ├── features/            # Feature specs + task logs
 │   ├── adr/                 # Architecture decisions
 │   └── working/             # Session-specific context
+├── web/                     # Optional, web-app (SAID-web)
 ├── CLAUDE.md                # AI development guide (entry point)
 └── README.md                # Project README
 ```
