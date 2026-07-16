@@ -1,28 +1,37 @@
-# Code Conventions
+# TS server Code Conventions - said-ts
 
 ## Core Philosophy
-- **KISS** - Simple solutions over complex ones
-- **YAGNI** - Build only what's needed now
-- **MVP First** - Working version, then iterate
-- **Type Safety** - Zod for runtime, TypeScript for compile-time
+
+- **KISS** - simple solutions over complex ones.
+- **YAGNI** - build only what's needed now.
+- **MVP First** - working version, then iterate.
+- **Type Safety** - Zod for runtime, TypeScript for compile-time.
 - **Error Handling** - Typed errors with AppError class
 
-## Core Stack (always present)
+## Stack
 
-```bash
-bun                        # Runtime + package manager + test runner
-zod                        # Runtime validation (v4)
-pino                       # Structured logging
-biome                      # Formatting + linting
+| Concern    | Choice                                        |
+|------------|-----------------------------------------------|
+| Framework  | bun - runtime + package manager + test runner |
+| Language   | TypeScript (strict)                           |
+| Validation | zod (v4) - runtime validation                 |
+| Logging    | pino - structured logging                     |
+| Lint       | biome - formatting + linting                  |
+
+---
+
+## Feature Structure
+
+Every feature lives in `server/src/features/<name>/` (feature structure: `ADR-TS-S03-feature-structure.md`):
+
 ```
-
-### Code Quality Commands
-```bash
-bun test                   # Run tests
-bun run format             # Format with Biome
-bun run lint               # Lint with Biome
-bun run check              # Format + lint
-bunx tsc --noEmit          # Type-check (catches deprecation warnings)
+server/src/features/<name>/
+├── <name>.types.ts        # Domain-owned interfaces (when needed)
+├── <name>.service.ts      # Business logic (constructor DI)
+├── <name>.module.ts       # Web specific: Hono routes (factory function)
+├── <name>.tools.ts        # MCP specific: MCP tools (factory function)
+├── <name>.schema.ts       # Zod schemas (request/response)
+└── <name>.test.ts         # Tests
 ```
 
 ---
@@ -37,19 +46,6 @@ hono                       # Web framework
 @hono/zod-validator        # Zod-based request validation middleware
 prisma                     # Database ORM
 jose                       # JWT signing/verification
-```
-
-### Web Feature Structure
-
-Every feature lives in `server/src/features/<name>/` (same structure as all layers, see ADR-S03). Web-specific file is `<name>.module.ts`:
-
-```
-server/src/features/<name>/
-├── <name>.types.ts        # Domain-owned interfaces (when needed)
-├── <name>.service.ts      # Business logic (constructor DI)
-├── <name>.module.ts       # Hono routes (factory function)
-├── <name>.schema.ts       # Zod schemas (request/response)
-└── <name>.test.ts         # Tests
 ```
 
 ### Web Module Pattern
@@ -164,7 +160,7 @@ Same feature structure as all layers (see ADR-S03). MCP-specific file is `<name>
 
 ```
 server/src/
-├── index.ts                              # Composition root — registerTool()
+├── index.ts                              # Composition root - registerTool()
 ├── config.ts                             # Config resolution
 ├── lib/                                  # Domain-agnostic utilities
 └── features/
@@ -232,7 +228,7 @@ Config resolution: env var > config file > git-root defaults.
 
 ### MCP Testing
 
-Test service and handlers directly — no transport layer:
+Test service and handlers directly - no transport layer:
 
 ```typescript
 import { describe, it, expect } from "bun:test";
@@ -264,7 +260,7 @@ import { readFile } from "fs/promises";
 // 2. External packages
 import { z } from "zod";
 
-// 3. Project aliases (@app, @config, @features, @lib — alphabetical)
+// 3. Project aliases (@app, @config, @features, @lib - alphabetical)
 import { createApp } from "@app";
 import type { Config } from "@config/config.js";
 import type { User } from "@features/users/users.schema.js";
@@ -314,27 +310,51 @@ export type CreateOrderInput = z.infer<typeof createOrderSchema>;
 - **Web**: `createApp()` in `app.ts`, features mounted via `app.route()`
 - **MCP**: `index.ts`, tools registered via `server.registerTool()`
 
-### Forbidden Practices
-- Direct `process.env` access outside `config.ts`
-- Global mutable state (use composition root)
-- `any` type (use `unknown` and narrow)
-- Ignoring errors (always handle or rethrow)
-- Circular imports between domains/features
-- Cross-domain service/handler imports (use DI via composition root)
-- Root-level dump-all `types.ts` (types belong in owning feature's `<name>.types.ts`)
-- Domain-specific code in `lib/` (lib/ is for domain-agnostic utilities only)
-- Pre-creating types for unbuilt features (YAGNI)
-- Business logic in route handlers / tool registration (keep in services/handlers)
+---
 
-## Quality Checklist
+## Forbidden practices
+
+- **No direct `process.env` access outside `config.ts`**
+- **No global mutable state** - use composition root
+- **No ignoring errors** - always handle or rethrow.
+- **No circular imports between domains/features**.
+- **No cross-domain service/handler imports** - use DI via composition root.
+- **No domain-specific code in `lib/`** lib/ is for domain-agnostic utilities only
+- **No pre-creating types for unbuilt features** - YAGNI
+- **No business logic in route handlers / tool registration** - keep in services/handlers
+- **No `any`** - use `unknown` and narrow.
+- **No `../../` across features** - use `@/`.
+- **No root-level dump-all `types.ts`** - types belong in the owning feature.
+- **No commits without explicit user request.**
+
+---
+
+## Testing
+
+See relevant sections for Web-testing, and MCP-testing. 
+
+---
+
+## Quality gates
+
 Before marking tasks complete:
 - [ ] Tests pass (`bun test`)
 - [ ] Code formatted (`bun run format`)
 - [ ] Type-check passes (`bunx tsc --noEmit`)
 - [ ] Zod schemas validate at boundaries
 
+### Code Quality Commands
+```bash
+bun test                   # Run tests
+bun run format             # Format with Biome
+bun run lint               # Lint with Biome
+bun run check              # Format + lint
+bunx tsc --noEmit          # Type-check (catches deprecation warnings)
+```
+
 ---
 
-**References:**
-- `@docs/adr/ADR-S02-typescript-project-setup.md` — Server stack decisions
-- `@docs/adr/ADR-S03-feature-structure.md` — Feature pattern details
+## References
+
+- `docs/adr/ADR-TS-S02-typescript-project-setup.md` - Server stack decisions
+- `docs/adr/ADR-TS-S03-feature-structure.md` - Feature pattern details

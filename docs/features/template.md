@@ -1,4 +1,11 @@
-# FEAT-XXX: [Feature Name]
+# <FEAT>-<NN>: [Feature Name]
+
+## Context to load alongside this spec
+- `docs/adr/<ADR-TS-XXX>.md` - <why it applies>
+- `src/features/<related>/` - <related code>
+- `docs/features/<FEAT>-<NN>.tasks.md` - implementation log
+
+(Load these before authoring or modifying code in this feature.)
 
 ## What & Why
 **User Story:** As a [user], I want [goal] so that [benefit]
@@ -15,10 +22,10 @@
 <!-- Include sections relevant to your project's active layers (see CLAUDE.md) -->
 
 **MCP Tools** (if MCP layer):
-- [ ] Tool: `[tool_name]` — input: [schema], output: [shape], side effects: [files/APIs]
+- [ ] Tool: `[tool_name]` - input: [schema], output: [shape], side effects: [files/APIs]
 
 **API Endpoints** (if Web layer):
-- [ ] [METHOD] /api/v1/path — [description]
+- [ ] [METHOD] /api/v1/path - [description]
 
 **Storage** (if applicable):
 - [ ] Filesystem: [paths written/read]
@@ -40,37 +47,6 @@ And [additional condition]
 Then [additional outcome]
 ```
 
-## Implementation Plan
-
-### Structure
-<!-- Use the pattern matching your active layer. See ADR-S03. -->
-
-**MCP layer:**
-```
-server/src/
-├── <domain>.ts            # Tool handlers
-└── <domain>.test.ts       # Tests
-```
-
-**Web layer:**
-```
-server/src/features/<name>/
-├── <name>.module.ts       # Hono routes (factory function)
-├── <name>.service.ts      # Business logic
-├── <name>.schema.ts       # Zod schemas
-└── <name>.test.ts         # Tests
-```
-
-> If a stacked layer (e.g., a frontend cloned as `ui/`) is also implementing this feature, see that layer's own feature template for its file structure.
-
-### Steps
-- [ ] Create source files following active layer pattern
-- [ ] Implement schemas (Zod)
-- [ ] Implement business logic (service/handlers)
-- [ ] Wire in composition root (`index.ts` for MCP / `app.ts` for Web)
-- [ ] Write tests
-- [ ] Verify functionality
-
 ## Definition of Done
 - [ ] All functional requirements implemented
 - [ ] All technical requirements met
@@ -84,33 +60,16 @@ server/src/features/<name>/
 
 <!-- Optional: for features that discover subtasks during implementation.
      Keep the summary table here; put detailed analysis in a companion file.
-     Create: FEAT-XXX.tasks.md (same directory, same prefix).
+     Create: <FEAT>-<NN>.tasks.md (same directory, same prefix).
 
 | Task | Title | Status |
 |---|---|---|
-| FXXX-001 | [Short title] | Fixed / Open / Defer |
+| <FEAT><NN>-TS-01 | [Short title] | Fixed / Open / Defer |
 
-Detailed task log: [FEAT-XXX.tasks.md](FEAT-XXX.tasks.md)
+Detailed task log: [<FEAT>-<NN>.tasks.md](<FEAT>-<NN>.tasks.md)
 -->
 
 ## Related
 - **ADRs:** [Link to relevant architectural decisions]
 - **Features:** [Link to dependent/related features]
 - **Issues:** [Link to GitHub issues/tickets]
-
-## Progress Tracking
-**Status:** Not Started
-**Assigned:** [Developer name]
-
-### Completed Tasks
-- [x] [Example completed task]
-
-### Current Focus
-- [ ] [What's being worked on now]
-
-### Blocked/Issues
-- [ ] [Any blockers or issues]
-
----
-**Created:** [Date]
-**Last Updated:** [Date]

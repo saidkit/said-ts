@@ -1,71 +1,25 @@
-# Feature Development
+# Feature specs
 
-## Quick Reference
-**Pattern**: `FEAT-XXX-name` (e.g., `FEAT-001-auth`, `FEAT-012-payments`)
-**Branch**: `feature/FEAT-XXX-name`
-**Commands**: `cd server && make test` -> `cd server && make format` -> `cd server && make typecheck` -> Update spec -> Ready for merge
+Feature specs and append-only task logs live here.
 
-## Feature Workflow
+## File pattern
 
-### Starting New Feature
-```bash
-# 1. Create spec from template
-cp docs/features/template.md docs/features/FEAT-XXX-name.md
+- `<FEAT>-<NN>.md` - feature spec (per `template.md`)
+- `<FEAT>-<NN>.tasks.md` - append-only task log (per `template-tasks.md`)
+- Sub-phased variant: `<FEAT>-<NN>-<slug>.md` (e.g., `INIT-02-users.md`)
 
-# 2. Create branch
-git checkout -b feature/FEAT-XXX-name
+## Discover features
 
-# 3. Load context in Claude
-@docs/conventions.md @docs/features/FEAT-XXX-name.md
-```
+`ls docs/features/*.md` - file list is the registry. No central index (no drift).
 
-### Feature File Structure
+Feature authoring principles per SAID workflow:
 
-Depends on active layer (see `CLAUDE.md` Active Layers):
+- **New feature**: `/said:architect <scope-path>` - Phase 2 (Architect) generates spec + initial tasks log from a scope.md
+- **New task on existing feature**: `/said:add-task <feature-id> [bug] [app=<APP>] [priority=High|Medium|Low]`
+- **Implement**: `/said:impl <task-id>` - drives Phase A (Classify + Inventory) → Phase B (Implement) → Phase C (Verify + close)
 
-**Web layer:**
-```
-server/src/features/<name>/
-├── <name>.types.ts        # Domain-owned interfaces (when needed)
-├── <name>.service.ts      # Business logic
-├── <name>.tools.ts        # MCP tools (when MCP layer active)
-├── <name>.module.ts       # Hono routes (when Web layer active)
-├── <name>.schema.ts       # Zod schemas
-└── <name>.test.ts         # Tests
-```
+## Related
 
-Same structure for all layers. Layer-specific files are optional. See **ADR-S03-feature-structure.md**.
-
-### Quick Start (New Feature)
-
-```bash
-# 1. Create feature directory
-mkdir -p server/src/features/<name>
-
-# 2. Create files following ADR-S03 pattern
-# <name>.types.ts → <name>.schema.ts → <name>.service.ts → <name>.tools.ts → <name>.test.ts
-# (order: types → schema → service → handlers/module → test)
-
-# 3. Wire in composition root
-# MCP: create service + handlers, registerTool() in index.ts
-# Web: create service + module, app.route() in app.ts
-```
-
-## Quality Gates
-| Gate           | Command        | Required |
-|----------------|----------------|----------|
-| Tests Pass     | `cd server && make test`      | yes      |
-| Code Formatted | `cd server && make format`    | yes      |
-| Type-check     | `cd server && make typecheck` | yes      |
-| Spec Updated   | Check FEAT-XXX                | yes      |
-| No Conflicts   | `git status`                  | yes      |
-
-## Development Principles
-- **MVP First**: Ship working version, iterate
-- **Test-Driven**: Write tests with implementation
-- **Branch Isolation**: One feature per branch
-- **Spec Updates**: Keep FEAT-XXX-name.md current
-
----
-
-**Key Rule**: Never merge without passing quality gates.
+- `template.md` - feature-spec stencil
+- `template-tasks.md` - task-log stencil + authoring discipline + working-folder-vs-task-body notion
+- `docs/adr/README.md` - ADR registry (decisions + relationships)

@@ -1,4 +1,4 @@
-# ADR-XXX: [Decision Title]
+# ADR-TS-XXX: [Decision Title]
 
 **Date:** YYYY-MM-DD
 **Status:** Proposed | Accepted | Rejected | Deprecated
@@ -32,7 +32,7 @@
 ```
 server/src/features/     # Feature changes
 server/src/lib/          # Infrastructure changes
-docs/features/           # Update affected FEAT-XXX files
+docs/features/           # Update affected FEAT-XX files
 ```
 
 ### Action Items
@@ -57,7 +57,7 @@ docs/features/           # Update affected FEAT-XXX files
 
 ## Related
 
-**Features:** [FEAT-XXX files affected by this decision]
+**Features:** [FEAT-XX files affected by this decision]
 **ADRs:** [Related architectural decisions]
 **References:** [External links, RFCs, etc.]
 
