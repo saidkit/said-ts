@@ -3,12 +3,12 @@
 ## Project Overview
 **Project**: SAID-ts - Smart AI Development for TypeScript
 **Vision**: Generic boilerplate for AI-native TypeScript development with structured workflows
-**Architecture**: Composable layers — Core (Bun + Zod + Biome) + optional: Web, MCP, Storage, External API, Skills
+**Architecture**: Composable layers - Core (Bun + Zod + Biome) + optional: Web, MCP, Storage, External API, Skills
 
-**Composability**: Other layers (e.g., a frontend SPA) may be added as sibling directories with their own `CLAUDE.md`. Each stacked layer is fully self-contained — see that directory's `CLAUDE.md` when working there.
+**Composability**: Other layers (e.g., a frontend SPA) may be added as sibling directories with their own `CLAUDE.md`. Each stacked layer is fully self-contained - see that directory's `CLAUDE.md` when working there.
 
 ## Quick Start
-Start with **this file only**. Then load deeper context by task — see **Implementation References** (what to read before changing code) and **Context Loading** (what to load, when).
+Start with **this file only**. Then load deeper context by task - see **Implementation References** (what to read before changing code) and **Context Loading** (what to load, when).
 
 ## Implementation References (Check BEFORE changing code)
 
@@ -126,11 +126,11 @@ The **Workflow Process** above is the lightweight per-change loop; the `said:` p
 Critical rules (full set in template-tasks.md):
 - **NEVER overwrite or strip detail** from existing entries
 - **New tasks get new IDs** appended at the end (no mid-task amendments)
-- **`### Fix` = one verification line** + optional one-liners (spec edits, working artifacts) — never `**Files added:**` blocks; files are derivable from `git log --name-only`
+- **`### Fix` = one verification line** + optional one-liners (spec edits, working artifacts) - never `**Files added:**` blocks; files are derivable from `git log --name-only`
 - **When updating status**: change only `Status:` line; add/update `### Fix`, optionally `### Deviations` and `### Gotchas`. You may add `### Implementation` section to save implementation nuances or lessons learned.
 - **When adding new tasks**: Append new `## FEATXX-TS-NN` sections at the end. Never reorganize or renumber existing tasks.
 - **Fix sections**: Document what was actually done, including deviations from the approach, bugs found, and outcomes. This is the implementation record.
-- **Keep all detail**: Source file lists, line counts, adaptation notes, decisions, trade-offs — all of this is historical context that future sessions need to understand why things were done a certain way.
+- **Keep all detail**: Source file lists, line counts, adaptation notes, decisions, trade-offs - all of this is historical context that future sessions need to understand why things were done a certain way.
 
 ## Documentation Rules
 IMPORTANT: NEVER use ASCII/Unicode box-drawing characters for diagrams.
@@ -140,11 +140,11 @@ Use instead:
 
 ## Quality Gates
 Before marking complete:
-- [ ] `make test` pass — R-GATE-TEST
-- [ ] `make typecheck` clean — R-GATE-TYPECHECK
-- [ ] `make lint` clean — R-GATE-LINT
-- [ ] `make format` clean — R-GATE-FORMAT
-- [ ] `make build` succeeds — R-GATE-BUILD
+- [ ] `make test` pass - R-GATE-TEST
+- [ ] `make typecheck` clean - R-GATE-TYPECHECK
+- [ ] `make lint` clean - R-GATE-LINT
+- [ ] `make format` clean - R-GATE-FORMAT
+- [ ] `make build` succeeds - R-GATE-BUILD
 - [ ] Feature / task log updated
 - [ ] No merge conflicts
 
@@ -157,11 +157,11 @@ Before marking complete:
 ## Earned rules (full context in linked ADR)
 - **Critical Rule: Dependency Injection** - all dependencies flow through the composition root (entry point file) → ADR-TS-S05-dependency-injection.md
 - Services receive dependencies via constructor injection. Modules are factory functions.
-- Never import singletons directly — always pass through the composition root.
+- Never import singletons directly - always pass through the composition root.
 - **Web layer**: composition root is `app.ts` via `createApp()` → ADR-TS-S05-dependency-injection.md
 - **MCP layer**: composition root is `index.ts` where services are created and tools registered → ADR-TS-S05-dependency-injection.md
 
 
-<!-- PROJECT-SPECIFIC SECTION — intentionally empty in the said-ts starter.
+<!-- PROJECT-SPECIFIC SECTION - intentionally empty in the said-ts starter.
      A consuming app appends its Route Map / Data model / Key Files here
      (Model A: one file = template + project section). -->
