@@ -97,7 +97,7 @@ This template is the **context spine** (`docs/conventions.md`, `docs/adr/`, `doc
 - **Triage** (find where a bug/behavior lives) → `/said:triage`
 - **Phase 1 - Scope** → `/said:scope-refine` (from a handoff / current branch) or `/said:scope-grill` (ideate a thin idea) → writes `docs/working/<feature>/scope.md`
 - **Phase 1.5 - Spec TOC** → `/said:uxtoc` (descriptive outline of a spec, for fast iteration)
-- **Phase 2 - Architect** → `/said:architect` (`scope.md` → `docs/features/NEXT-XX-*.md` + `NEXT-XX.tasks.md`); `/said:add-task` to append a task discovered mid-flight
+- **Phase 2 - Architect** → `/said:architect` (`scope.md` → `docs/features/SRV-XX-*.md` + `SRV-XX.tasks.md`); `/said:add-task` to append a task discovered mid-flight
 - **Phase 3 - Implement** → `/said:impl` (drive a task `Todo → Done` under TDD); `/said:review-ux` (per-task UX gate for web/UI)
 - **Phase 3.5 - Verify** → `/said:review-qa` (quality gates + `### Fix` integrity) then `/said:accept` (acceptance-criteria contract)
 - **Phase 4 - Debrief** → `/said:debrief` (feature retro; backport lessons into `docs/adr/` + `docs/conventions.md`)

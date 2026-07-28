@@ -306,5 +306,5 @@ All cross-boundary imports use path aliases (see ADR-S02 "Path Aliases"):
 
 ## Related
 
-- ADR-S01: Monorepo structure
+- ADR-TS-S01: Repository structure (multi-repo layer composition)
 - ADR-S02: TypeScript project setup

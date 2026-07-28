@@ -2,14 +2,14 @@
 
 Point-in-time records of **why** a non-obvious decision was made. ADRs are history, not live state - read the relevant one when working in that area; **don't preload all of them**, and verify against the actual code (an ADR may have been superseded).
 
-All ADRs here are **System ADRs** (`ADR-NEXT-S0x`) - cross-cutting decisions
-**portable across SAID Next.js projects** (repository anatomy, stack, patterns). This is a starter template, so it ships **no application ADRs**: project- and product-specific decisions live in **feature specs** (`docs/features/NEXT-0x-*.md`), not here.
+All ADRs here are **System ADRs** (`ADR-TS-S0x`) - cross-cutting decisions
+**portable across SAID TS projects** (repository anatomy, stack, patterns). This is a starter template, so it ships **no application ADRs**: project- and product-specific decisions live in **feature specs** (`docs/features/TS-0x-*.md`), not here.
 
 ## Quick Reference
 
 | Load this                           | When you need to                              |
 |-------------------------------------|-----------------------------------------------|
-| ADR-TS-S01-monorepo-structure       | Understand project layout                     |
+| ADR-TS-S01-repository-structure     | Understand project layout                     |
 | ADR-TS-S02-typescript-project-setup | Understand stack choices, path aliases        |
 | ADR-TS-S03-feature-structure        | Create new feature module                     |
 | ADR-TS-S04-pure-service-modules     | Wrap an external API (Stripe, S3, etc.)       |

@@ -145,5 +145,5 @@ A single `@/` root alias is common but loses the semantic signal. Named aliases 
 
 ## Related
 
-- ADR-S01: Monorepo structure
+- ADR-TS-S01: Repository structure (multi-repo layer composition)
 - ADR-S03: Feature structure
