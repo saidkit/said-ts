@@ -1,7 +1,21 @@
 # Claude.md - SAID-ts Development Guide
 
+## Lane
+
+**SAID lane:** single — this project is one lane.
+
+- **Docs root** — `docs/`
+- **Code mount(s)** — `server/`
+- **Feature spec** — `docs/features/<id>.md`
+- **Task log** — `docs/features/<id>.tasks.md` (flat)
+- **Working dir** — `docs/working/<id>/`
+- **Task-id shape** — `<FEAT><NN>-TS-<NN>`
+- **ADR prefix** — `ADR-TS-*` (system tier `-SNN-`)
+
+A **lane** is a tree that owns a full SAID cycle — its own feature specs, task log, working dir and ADRs. A lane is **not a mount**: a project may build into several mounts and remain one lane. Single-lane work is `said!`; `flow!` is for a feature spanning **two or more task logs**, which this project does not have.
+
 ## Project Overview
-**Project**: SAID-ts - Smart AI Development for TypeScript
+**Project**: SAID-ts - Software AI Delivery for TypeScript
 **Vision**: Generic boilerplate for AI-native TypeScript development with structured workflows
 **Architecture**: Composable layers - Core (Bun + Zod + Biome) + optional: Web, MCP, Storage, External API, Skills
 
@@ -39,8 +53,6 @@ When this starter is stacked under a root orchestrator, the root owns progressiv
 **3. Load implementation files (only when editing):**
 - Feature work → `server/src/features/xxx/`
 - Infrastructure → `server/src/lib/` + `server/src/middleware/`
-
-**Stacked layers** (e.g., `ui/`): If working in a sibling layer directory, use that layer's `CLAUDE.md` as the entry point instead.
 
 ## File Structure
 ```
@@ -96,13 +108,27 @@ This template is the **context spine** (`docs/conventions.md`, `docs/adr/`, `doc
 
 - **Triage** (find where a bug/behavior lives) → `/said:triage`
 - **Phase 1 - Scope** → `/said:scope-refine` (from a handoff / current branch) or `/said:scope-grill` (ideate a thin idea) → writes `docs/working/<feature>/scope.md`
-- **Phase 1.5 - Spec TOC** → `/said:uxtoc` (descriptive outline of a spec, for fast iteration)
+- **Phase 1.5 - Spec TOC** → `/said:uxtoc` (descriptive outline of a UX spec, for fast iteration)
 - **Phase 2 - Architect** → `/said:architect` (`scope.md` → `docs/features/SRV-XX-*.md` + `SRV-XX.tasks.md`); `/said:add-task` to append a task discovered mid-flight
 - **Phase 3 - Implement** → `/said:impl` (drive a task `Todo → Done` under TDD); `/said:review-ux` (per-task UX gate for web/UI)
 - **Phase 3.5 - Verify** → `/said:review-qa` (quality gates + `### Fix` integrity) then `/said:accept` (acceptance-criteria contract)
 - **Phase 4 - Debrief** → `/said:debrief` (feature retro; backport lessons into `docs/adr/` + `docs/conventions.md`)
 
 The **Workflow Process** above is the lightweight per-change loop; the `said:` phases are the full feature lifecycle. Both land in the same spine.
+
+## Significant ADRs (skill-referenced)
+
+The `said:` skills refer to system ADRs by descriptive shortname so the skill text stays project-agnostic. This table binds shortname → this lane's concrete ADR file. Update when a referenced ADR is renamed or renumbered.
+
+| Skill shortname | This project's ADR file | Consumed by |
+|---|---|---|
+| feature-structure-ADR | `docs/adr/ADR-TS-S03-feature-structure.md` | `/said:impl` |
+| service-adapter-ADR | `docs/adr/ADR-TS-S05-dependency-injection.md` | `/said:impl` |
+| earn-its-place-ADR | — not yet promoted in this lane | `/said:review-qa`, `/said:debrief` |
+
+`service-adapter-ADR` companion: `docs/adr/ADR-TS-S04-pure-service-modules.md` defines the external-API wrapper shape; S05 carries the injection/mocking discipline the skills actually cite (mock services are runtime-selected production code — tests wire deps at the composition root, **never** `vi.mock()`).
+
+A task's `Refs:` line may cite either the shortname or the ADR path — `/said:review-qa` matches both against `docs/qa/feature-qa-checklist.md`. That checklist does not exist in this starter, so `Refs:` cites currently surface as WARN (operator-verify) rather than mechanical PASS/FAIL; the mechanical gates come from **Quality Gates** below (`R-GATE-*`).
 
 ## Core Principles
 - **Context Efficiency** - Load only what you need
