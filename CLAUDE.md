@@ -15,7 +15,7 @@
 A **lane** is a tree that owns a full SAID cycle — its own feature specs, task log, working dir and ADRs. A lane is **not a mount**: a project may build into several mounts and remain one lane. Single-lane work is `said!`; `flow!` is for a feature spanning **two or more task logs**, which this project does not have.
 
 ## Project Overview
-**Project**: SAID-ts - Software AI Delivery for TypeScript
+**Project**: SAID-ts - Structured AI Delivery for TypeScript
 **Vision**: Generic boilerplate for AI-native TypeScript development with structured workflows
 **Architecture**: Composable layers - Core (Bun + Zod + Biome) + optional: Web, MCP, Storage, External API, Skills
 

@@ -1,4 +1,4 @@
-# SAID-ts - Software AI Delivery for TypeScript
+# SAID-ts - Structured AI Delivery for TypeScript
 
 AI-native **TypeScript** starter: hono.js, mcp, prisma. Self-contained - its own conventions, ADRs, scaffold, and AI development guide (`CLAUDE.md`).
 
