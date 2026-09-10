@@ -9,6 +9,7 @@ help: ## Show this help
 
 # Development
 setup: ## Install dependencies and setup database
+	[ -f .env ] || cp .env.example .env
 	bun install && bunx prisma generate && bunx prisma db push
 
 dev: ## Start MCP server with hot reload

@@ -14,7 +14,7 @@ TypeScript backend with feature-based architecture, designed for AI-native devel
 
 ## Optional Layers (add as needed)
 
-- **MCP**: @modelcontextprotocol/sdk — Claude Code tools
+- **MCP**: @modelcontextprotocol/sdk — Claude Code tools (stdio) or MCP-over-HTTP for a hosted server
 - **Web**: Hono + @hono/zod-validator — HTTP API
 - **Database**: Prisma (SQLite dev, PostgreSQL prod)
 - **Container**: Docker (multi-stage Bun build)

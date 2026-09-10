@@ -37,3 +37,63 @@ said-capture:   http-call                   # requests issued against the endpoi
 said-judge:     oracle
 said-recompute: cd server && make test       # bun test — endpoint tests assert responses against the Zod schemas; exit 0 = conformant
 ```
+
+---
+
+# Surface-contract rules — `mcp` surface
+
+<!-- SC-HEADER: feature-ux-rules · surface=mcp · token UXR-MCP-M1 · 8 rules
+     Proof-of-load sentinel. A consumer whose lane declares `SAID.surface: mcp`
+     LOADs this file WHOLE and echoes `UXR-MCP-M1 · 8 rules` before reasoning over
+     the mcp section. token + count are both required; count is the number of
+     `- **R-MCP-NN**` entries below. No token/count echoed → the consumer HALTs.
+     Never grep/derive a single entry. -->
+
+This file carries **one section per surface** — `api` above, `mcp` here. A consuming lane declares one
+`SAID.surface:` and echoes the token of **that** surface's `SC-HEADER` before reasoning over its rules
+(the starter ships `surface: api`; a stdio tool-server deployment flips its own lane to `surface: mcp`).
+
+An `mcp` lane's shipped **surface** is its MCP tools — their naming, input schema, result envelope, and
+idempotency. The `mcp` reviewer (recipe-form, defined at the foot of this section) gates that surface by
+re-running the tool test suite (`said-recompute: cd server && make test`). MCP tools are a **per-feature
+optional layer** (`<feature>.tools.ts`) over the same service the HTTP layer uses — a behaviour is defined
+once in the service and exposed per layer.
+
+Per entry: `**id** — summary`, then `applies-to`. There is no `order` field — cheapest-first blast-radius
+ordering is implementer judgment.
+
+- **R-MCP-01** — Feature-factory: a feature's MCP layer is `create<Feature>Tools(service)` returning `{ method: async(args) => McpToolResult }`, wired from the composition root (`index.ts`).
+  - applies-to: every feature's MCP layer
+- **R-MCP-02** — Input schema: each tool has a Zod input schema whose `.shape` is passed to `registerTool`; the schema lives with the feature (`<feature>.schema.ts`).
+  - applies-to: every tool
+- **R-MCP-03** — Result envelope: a tool returns the `McpToolResult` envelope `{ content: [{ type: "text", text: <json> }], isError? }` via the shared `ok()` / `err()` helpers (`lib/mcp.ts`).
+  - applies-to: every tool
+- **R-MCP-04** — Errors returned, never thrown: a domain error is returned as a result with `isError: true` (via `err()`), **not** thrown — the inverse of the HTTP path, which throws `AppError` at a status. The single most MCP-specific rule.
+  - applies-to: every tool
+- **R-MCP-05** — Tool naming: `<namespace|feature>_<action>` (a server-namespace or feature prefix + the action), so tool names stay collision-free and self-describing.
+  - applies-to: every registered tool
+- **R-MCP-06** — Surface-agnostic core: the MCP tools are a thin adapter over the shared service + schema — no business logic in `<feature>.tools.ts`; the service is the one source of behaviour (the same rule the HTTP layer obeys).
+  - applies-to: every feature (service · Web module · MCP tools)
+- **R-MCP-07** — Deterministic recompute: a `bun test` suite exercises ≥1 tool (a `*.tools.test.ts` asserting the `ok()` envelope), so the mcp reviewer's `make test` recompute re-derives a real verdict rather than a nominal pass.
+  - applies-to: the feature test suite
+- **R-MCP-08** — Idempotency (mutating tools): a mutating tool (create / update / delete) guards duplicate application — a duplicate-id / already-exists check returns a domain error (`err()`), never a second write. A read-only query tool is idempotent by nature and needs no guard.
+  - applies-to: mutating tools only
+
+## The `mcp-schema` Checker — recipe-form instance
+
+The reviewer an `mcp` lane names in `SAID.reviewers:`. It is a **recipe-form** Checker (no agent file, no
+`SAID.checkers-dir:`): the reviewer gate indexes the `said-*` block below when invoked with
+`--recipe-rules docs/ux/feature-ux-rules.md`. Its capture is a process-spawn (the stdio MCP server and its
+tool suite) and its judge is an `oracle` — the deterministic `said-recompute` re-runs the tool test suite
+(the `*.tools.test.ts` exercising each tool through the `ok()` envelope), so a fabricated PASS is caught.
+
+A lane deploying said-ts as a stdio tool server declares `SAID.surface: mcp` + `SAID.reviewers: [mcp-schema]`;
+a hosted deployment keeps `SAID.surface: api` + `[api-schema]`. The registry ships both, the lane picks one.
+
+```
+said-checker:   mcp-schema
+said-governs:   surface=mcp                  # fires on a feature that bears the mcp surface (per the feature `Surface:`)
+said-capture:   process-spawn                # the stdio MCP server + its tool test suite
+said-judge:     oracle
+said-recompute: cd server && make test        # bun test — the *.tools.test.ts exercise each tool through the ok() envelope; exit 0 = conformant
+```

@@ -18,7 +18,7 @@
     "db:migrate": "bunx prisma migrate dev",
     "db:seed": "bun run prisma/seed.ts",
     "db:studio": "bunx prisma studio",
-    "setup": "bun install && bunx prisma generate && bunx prisma db push"
+    "setup": "([ -f .env ] || cp .env.example .env) && bun install && bunx prisma generate && bunx prisma db push"
   },
   "prisma": {
     "seed": "bun run prisma/seed.ts"

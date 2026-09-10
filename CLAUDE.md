@@ -27,6 +27,24 @@ A **lane** is a tree that owns a full SAID cycle. Single-lane work is `said!`; `
 
 **Composability**: Other layers (e.g., a frontend SPA) may be added as sibling directories with their own `CLAUDE.md`. Each stacked layer is fully self-contained - see that directory's `CLAUDE.md` when working there.
 
+### The dual layer: one service, HTTP and/or MCP
+
+A feature's business logic lives once in `<name>.service.ts` (+ `<name>.schema.ts`). The delivery layers are **optional adapters over that one service**, added per feature:
+
+- **`<name>.module.ts`** — the HTTP layer (Hono routes, mounted under `/api/v1/<feature>`).
+- **`<name>.tools.ts`** — the MCP layer (a `create<Feature>Tools(service)` factory whose methods wrap the service result in `ok()` / `err()` from `lib/mcp.ts`).
+
+`features/health/` is the exemplar — it ships **both** adapters over one `health.service.ts`; `features/users/` ships **only** the HTTP module. A feature adds the MCP layer without duplicating the core; a behaviour is defined once and exposed per layer.
+
+### Surface pick at roll time (SAID)
+
+Which `SAID.surface:` a deploying project declares is a **deployment-topology** choice, not an architecture one:
+
+- **Hosted server** (an HTTP API, optionally MCP-over-HTTP on the same transport) → `SAID.surface: api`, gated by the `api-schema` Checker (`http-call` capture) in `docs/ux/feature-ux-rules.md`.
+- **Local tool server** (stdio MCP the client spawns) → `SAID.surface: mcp`, gated by the `mcp-schema` Checker (`process-spawn` capture) in the registry's `mcp` section.
+
+**This starter ships `SAID.surface: api`** (see the `## Lane` block) — that stays as the default. A project that deploys said-ts as a stdio tool server flips its own lane to `surface: mcp` / `reviewers: [mcp-schema]`; a hosted deployment keeps `api`. Either way the registry ships both rule sets and both Checkers, so the consumer picks without re-authoring the contract.
+
 ## Quick Start
 Start with **this file only**. Then load deeper context by task - see **Implementation References** (what to read before changing code) and **Context Loading** (what to load, when).
 
