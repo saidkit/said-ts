@@ -1,5 +1,11 @@
 # <FEAT>-<NN>: [Feature Name]
 
+**Surface:** <api | none>
+<!-- Inherits the lane `SAID.surface:` (`api`). 
+     Set `none` for a feature that ships no HTTP endpoints 
+     (e.g. an internal-library feature) — the `api-schema` reviewer then
+     SKIPs it. An `api` feature is gated against `docs/ux/feature-ux-rules.md`. -->
+
 ## Context to load alongside this spec
 - `docs/adr/<ADR-TS-XXX>.md` - <why it applies>
 - `src/features/<related>/` - <related code>

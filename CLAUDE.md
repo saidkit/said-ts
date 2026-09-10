@@ -2,17 +2,23 @@
 
 ## Lane
 
-**SAID lane:** single — this project is one lane.
+Single lane — this project is one lane. Every path below is relative to this lane's root.
 
-- **Docs root** — `docs/`
-- **Code mount(s)** — `server/`
-- **Feature spec** — `docs/features/<id>.md`
-- **Task log** — `docs/features/<id>.tasks.md` (flat)
-- **Working dir** — `docs/working/<id>/`
-- **Task-id shape** — `<FEAT><NN>-TS-<NN>`
-- **ADR prefix** — `ADR-TS-*` (system tier `-SNN-`)
+- SAID.lane:         said-ts
+- SAID.version:      said-ts@0.1.0
+- SAID.docs-root:    docs/
+- SAID.code-mount:   server/
+- SAID.feature-spec: docs/features/<id>.md
+- SAID.task-log:     docs/features/<id>.tasks.md
+- SAID.working:      docs/working/<id>/
+- SAID.id-shape:     <FEAT><NN>-TS-<NN>
+- SAID.adr-prefix:   ADR-TS-*
+- SAID.surface:      api
+- SAID.reviewers:    [api-schema]
+- SAID.commands:     cd server && make pre-commit
+- SAID.profile:      code
 
-A **lane** is a tree that owns a full SAID cycle — its own feature specs, task log, working dir and ADRs. A lane is **not a mount**: a project may build into several mounts and remain one lane. Single-lane work is `said!`; `flow!` is for a feature spanning **two or more task logs**, which this project does not have.
+A **lane** is a tree that owns a full SAID cycle. Single-lane work is `said!`; `flow!` is for a feature spanning **two or more task logs**. A stacked layer (e.g. a frontend SPA in a sibling directory) is a separate lane with its own `CLAUDE.md`.
 
 ## Project Overview
 **Project**: SAID-ts - Structured AI Delivery for TypeScript
@@ -124,7 +130,7 @@ The `said:` skills refer to system ADRs by descriptive shortname so the skill te
 |---|---|---|
 | feature-structure-ADR | `docs/adr/ADR-TS-S03-feature-structure.md` | `/said:impl` |
 | service-adapter-ADR | `docs/adr/ADR-TS-S05-dependency-injection.md` | `/said:impl` |
-| earn-its-place-ADR | — not yet promoted in this lane | `/said:review-qa`, `/said:debrief` |
+| earn-its-place-ADR | — not yet promoted; the threshold is stated in `docs/adr/README.md` | `/said:review-qa`, `/said:debrief` |
 
 `service-adapter-ADR` companion: `docs/adr/ADR-TS-S04-pure-service-modules.md` defines the external-API wrapper shape; S05 carries the injection/mocking discipline the skills actually cite (mock services are runtime-selected production code — tests wire deps at the composition root, **never** `vi.mock()`).
 
@@ -138,6 +144,7 @@ A task's `Refs:` line may cite either the shortname or the ADR path — `/said:r
 - **Type Safety** - Zod schemas for runtime validation, TypeScript for compile-time
 
 ## Claude Code Reminders
+- **Before each implementation step, re-read `## Earned rules` and name the ids you apply.**
 - **Context Management**: Start with this guide only, add incrementally
 - **File Loading**: Only load files you're actively editing
 - **Quality Gates**: Always run `cd server && make format && make typecheck` before marking complete
@@ -181,11 +188,11 @@ Before marking complete:
 ---
 
 ## Earned rules (full context in linked ADR)
-- **Critical Rule: Dependency Injection** - all dependencies flow through the composition root (entry point file) → ADR-TS-S05-dependency-injection.md
-- Services receive dependencies via constructor injection. Modules are factory functions.
-- Never import singletons directly - always pass through the composition root.
-- **Web layer**: composition root is `app.ts` via `createApp()` → ADR-TS-S05-dependency-injection.md
-- **MCP layer**: composition root is `index.ts` where services are created and tools registered → ADR-TS-S05-dependency-injection.md
+- **R-TS-01** — Dependency injection: all dependencies flow through the composition root (entry-point file) → ADR-TS-S05-dependency-injection.md
+- **R-TS-02** — Services receive dependencies via constructor injection; modules are factory functions → ADR-TS-S05-dependency-injection.md
+- **R-TS-03** — Never import singletons directly — always pass through the composition root → ADR-TS-S05-dependency-injection.md
+- **R-TS-04** — Web layer: composition root is `app.ts` via `createApp()` → ADR-TS-S05-dependency-injection.md
+- **R-TS-05** — MCP layer: composition root is `index.ts`, where services are created and tools registered → ADR-TS-S05-dependency-injection.md
 
 
 <!-- PROJECT-SPECIFIC SECTION - intentionally empty in the said-ts starter.
