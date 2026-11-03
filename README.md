@@ -19,7 +19,7 @@ make test
 - **`CLAUDE.md`** - AI development guide (entry point for Claude Code)
 - **`conventions.md`** - code patterns, import rules
 - **`idea.md` / `vision.md`** - project context templates
-- **`adr/ADR-TS-SXX`** - System ADRs (repo structure, TypeScript setup, feature structure, pure service modules, dependency injection)
+- **`adr/ADR-TS-SXX`** - STARTER ADRs, provided by the starter (repo structure, TypeScript setup, feature structure, pure service modules, dependency injection)
 - **Feature templates** - Spec and task log templates
 
 ### Server app (`server/`)

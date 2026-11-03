@@ -2,7 +2,7 @@
 
 The releases of this TypeScript SAID starter, newest first. A cloned project records which release it is based on in its `## Lane` block (`SAID.version:`, the line under `SAID.lane:`); this file says what each release is. Versions follow [semver](https://semver.org/).
 
-## said-ts@0.1.0 — 2026-09-09
+## said-ts@0.1.0 - 2026-09-09
 
 Initial versioned release of the **said-ts** TypeScript-core SAID starter.
 

@@ -142,7 +142,7 @@ The **Workflow Process** above is the lightweight per-change loop; the `said:` p
 
 ## Significant ADRs (skill-referenced)
 
-The `said:` skills refer to system ADRs by descriptive shortname so the skill text stays project-agnostic. This table binds shortname → this lane's concrete ADR file. Update when a referenced ADR is renamed or renumbered.
+The `said:` skills refer to STARTER ADRs by descriptive shortname so the skill text stays project-agnostic. This table binds shortname → this lane's concrete ADR file. Update when a referenced ADR is renamed or renumbered.
 
 | Skill shortname | This project's ADR file | Consumed by |
 |---|---|---|
