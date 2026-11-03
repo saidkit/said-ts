@@ -5,7 +5,8 @@
 Single lane — this project is one lane. Every path below is relative to this lane's root.
 
 - SAID.lane:         said-ts
-- SAID.version:      said-ts@0.1.0
+- SAID.version:      said@0.8.0
+- SAID.starter:      said-ts@0.1.0
 - SAID.docs-root:    docs/
 - SAID.code-mount:   server/
 - SAID.feature-spec: docs/features/<id>.md
