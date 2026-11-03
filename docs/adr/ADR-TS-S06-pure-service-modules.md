@@ -1,4 +1,4 @@
-# ADR-S04: Pure Service Modules for External APIs
+# ADR-TS-S06: Pure Service Modules for External APIs
 
 **Date:** 2026-04-22
 **Status:** Accepted
