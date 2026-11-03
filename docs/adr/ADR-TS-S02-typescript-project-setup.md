@@ -1,4 +1,4 @@
-# ADR-S02: TypeScript Project Setup
+# ADR-TS-S02: TypeScript Project Setup
 
 **Date:** 2026-04-22
 **Status:** Accepted

@@ -1,4 +1,4 @@
-# ADR-S05: Dependency Injection
+# ADR-TS-S05: Dependency Injection
 
 **Date:** 2026-04-22
 **Status:** Accepted

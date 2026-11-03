@@ -1,4 +1,4 @@
-# ADR-S03: Feature Structure
+# ADR-TS-S03: Feature Structure
 
 **Date:** 2026-04-22
 **Status:** Accepted
