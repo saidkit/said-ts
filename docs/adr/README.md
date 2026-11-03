@@ -12,6 +12,7 @@ All ADRs here are **STARTER ADRs** (`ADR-TS-S0x`) - cross-cutting decisions
 | ADR-TS-S01-repository-structure     | Understand project layout                     |
 | ADR-TS-S02-typescript-project-setup | Understand stack choices, path aliases        |
 | ADR-TS-S03-feature-structure        | Create new feature module                     |
+| ADR-TS-S04-versions-and-upgrades   | Stamp or read the starter's release; walk its upgrade playbooks |
 | ADR-TS-S05-dependency-injection     | Wire cross-feature deps, test with mocks      |
 | ADR-TS-S06-pure-service-modules     | Wrap an external API (Stripe, S3, etc.)       |
 
@@ -22,6 +23,7 @@ All ADRs here are **STARTER ADRs** (`ADR-TS-S0x`) - cross-cutting decisions
 | ADR-TS-S01 | Repository structure         |
 | ADR-TS-S02 | TypeScript project setup     |
 | ADR-TS-S03 | Feature structure            |
+| ADR-TS-S04 | Versions and upgrades        |
 | ADR-TS-S05 | Dependency injection         |
 | ADR-TS-S06 | Pure service modules         |
 
