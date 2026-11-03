@@ -40,7 +40,7 @@ Start with Core, add layers as needed:
 | **Web**           | Building HTTP API          | `app.ts`, `<name>.module.ts`       |
 | **Storage: DB**   | Need database              | Add Prisma (see below)             |
 | **Storage: FS**   | Need file parsing          | Add gray-matter                    |
-| **External API**  | Wrapping 3rd-party API     | Pure service module (ADR-TS-S04)   |
+| **External API**  | Wrapping 3rd-party API     | Pure service module (ADR-TS-S06)   |
 | **Deployment**    | Containerizing             | `Dockerfile`, `docker-compose.yml` |
 
 ## Adding Prisma (Storage: DB Layer)

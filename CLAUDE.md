@@ -55,7 +55,7 @@ Start with **this file only**. Then load deeper context by task - see **Implemen
 | Project structure                           | `docs/adr/ADR-TS-S01-repository-structure.md`     |
 | TS setup / frameworks                       | `docs/adr/ADR-TS-S02-typescript-project-setup.md` |
 | New business feature                        | `docs/adr/ADR-TS-S03-feature-structure.md`        |
-| External API wrappers                       | `docs/adr/ADR-TS-S04-pure-service-modules.md`     |
+| External API wrappers                       | `docs/adr/ADR-TS-S06-pure-service-modules.md`     |
 | DI: deps, mocks, stubs                      | `docs/adr/ADR-TS-S05-dependency-injection.md`     |
 | Coding conventions (how-to, code patterns)  | `docs/conventions.md`                             |
 | Architecture overview                       | `docs/vision.md`                                  |
@@ -150,7 +150,7 @@ The `said:` skills refer to STARTER ADRs by descriptive shortname so the skill t
 | service-adapter-ADR | `docs/adr/ADR-TS-S05-dependency-injection.md` | `/said:impl` |
 | earn-its-place-ADR | — not yet promoted; the threshold is stated in `docs/adr/README.md` | `/said:review-qa`, `/said:debrief` |
 
-`service-adapter-ADR` companion: `docs/adr/ADR-TS-S04-pure-service-modules.md` defines the external-API wrapper shape; S05 carries the injection/mocking discipline the skills actually cite (mock services are runtime-selected production code — tests wire deps at the composition root, **never** `vi.mock()`).
+`service-adapter-ADR` companion: `docs/adr/ADR-TS-S06-pure-service-modules.md` defines the external-API wrapper shape; S05 carries the injection/mocking discipline the skills actually cite (mock services are runtime-selected production code — tests wire deps at the composition root, **never** `vi.mock()`).
 
 A task's `Refs:` line may cite either the shortname or the ADR path — `/said:review-qa` matches both against `docs/qa/feature-qa-checklist.md`. That checklist does not exist in this starter, so `Refs:` cites currently surface as WARN (operator-verify) rather than mechanical PASS/FAIL; the mechanical gates come from **Quality Gates** below (`R-GATE-*`).
 
