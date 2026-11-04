@@ -5,10 +5,10 @@
 Single lane — this project is one lane. Every path below is relative to this lane's root.
 
 - SAID.lane:         said-ts
-- SAID.version:      said@0.8.0
-- SAID.starter:      said-ts@0.1.0
+- SAID.version:      said@0.26.0
+- SAID.starter:      said-ts@0.2.0
 - SAID.docs-root:    docs/
-- SAID.code-mount:   server/
+- SAID.mounts:       [server/]
 - SAID.feature-spec: docs/features/<id>.md
 - SAID.task-log:     docs/features/<id>.tasks.md
 - SAID.working:      docs/working/<id>/
@@ -39,12 +39,12 @@ A feature's business logic lives once in `<name>.service.ts` (+ `<name>.schema.t
 
 ### Surface pick at roll time (SAID)
 
-Which `SAID.surface:` a deploying project declares is a **deployment-topology** choice, not an architecture one:
+Which surface a deploying project declares is a **deployment-topology** choice, not an architecture one:
 
-- **Hosted server** (an HTTP API, optionally MCP-over-HTTP on the same transport) → `SAID.surface: api`, gated by the `api-schema` Checker (`http-call` capture) in `docs/ux/feature-ux-rules.md`.
-- **Local tool server** (stdio MCP the client spawns) → `SAID.surface: mcp`, gated by the `mcp-schema` Checker (`process-spawn` capture) in the registry's `mcp` section.
+- **Hosted server** (an HTTP API, optionally MCP-over-HTTP on the same transport) → the `api` surface, gated by the `api-schema` Checker (`http-call` capture) in `docs/ux/feature-ux-rules.md`.
+- **Local tool server** (stdio MCP the client spawns) → the `mcp` surface, gated by the `mcp-schema` Checker (`process-spawn` capture) in the registry's `mcp` section.
 
-**This starter ships `SAID.surface: api`** (see the `## Lane` block) — that stays as the default. A project that deploys said-ts as a stdio tool server flips its own lane to `surface: mcp` / `reviewers: [mcp-schema]`; a hosted deployment keeps `api`. Either way the registry ships both rule sets and both Checkers, so the consumer picks without re-authoring the contract.
+**This starter ships the `api` surface** (see the `## Lane` block) — that stays as the default. A project that deploys said-ts as a stdio tool server flips its own lane to `surface: mcp` / `reviewers: [mcp-schema]`; a hosted deployment keeps `api`. Either way the registry ships both rule sets and both Checkers, so the consumer picks without re-authoring the contract.
 
 ## Quick Start
 Start with **this file only**. Then load deeper context by task - see **Implementation References** (what to read before changing code) and **Context Loading** (what to load, when).
@@ -207,11 +207,11 @@ Before marking complete:
 ---
 
 ## Earned rules (full context in linked ADR)
-- **R-TS-01** — Dependency injection: all dependencies flow through the composition root (entry-point file) → ADR-TS-S05-dependency-injection.md
-- **R-TS-02** — Services receive dependencies via constructor injection; modules are factory functions → ADR-TS-S05-dependency-injection.md
-- **R-TS-03** — Never import singletons directly — always pass through the composition root → ADR-TS-S05-dependency-injection.md
-- **R-TS-04** — Web layer: composition root is `app.ts` via `createApp()` → ADR-TS-S05-dependency-injection.md
-- **R-TS-05** — MCP layer: composition root is `index.ts`, where services are created and tools registered → ADR-TS-S05-dependency-injection.md
+- **R-TS-01** — Dependency injection: all dependencies flow through the composition root (entry-point file) → docs/adr/ADR-TS-S05-dependency-injection.md
+- **R-TS-02** — Services receive dependencies via constructor injection; modules are factory functions → docs/adr/ADR-TS-S05-dependency-injection.md
+- **R-TS-03** — Never import singletons directly — always pass through the composition root → docs/adr/ADR-TS-S05-dependency-injection.md
+- **R-TS-04** — Web layer: composition root is `app.ts` via `createApp()` → docs/adr/ADR-TS-S05-dependency-injection.md
+- **R-TS-05** — MCP layer: composition root is `index.ts`, where services are created and tools registered → docs/adr/ADR-TS-S05-dependency-injection.md
 
 
 <!-- PROJECT-SPECIFIC SECTION - intentionally empty in the said-ts starter.

@@ -2,6 +2,14 @@
 
 The releases of this TypeScript SAID starter, newest first. A cloned project records which release it is based on in its `## Lane` block (`SAID.version:`, the line under `SAID.lane:`); this file says what each release is. Versions follow [semver](https://semver.org/).
 
+## said-ts@0.2.0 - 2026-11-04
+
+- The `## Lane` block is stamped `said@0.26.0`: the lane passes the said upgrade checks up to that release.
+- The task template carries the operator-question hold: the `**Blocked-on question:**` field and the `## Lifted holds` section, lifted only by a recorded ruling.
+- `SAID.code-mount` is now the list key `SAID.mounts: [server/]`.
+- Each earned rule ends with one link to its record.
+- Prose no longer spells the surface key a second time.
+
 ## said-ts@0.1.0 - 2026-09-09
 
 Initial versioned release of the **said-ts** TypeScript-core SAID starter.

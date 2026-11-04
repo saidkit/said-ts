@@ -31,6 +31,8 @@
 - Cosmetic Deviations (sub-30-min friction, no downstream impact, plan-vs-actual on positions / sizes / order). → drop entirely; they're noise.
 - Gotchas visible from the diff, test names, or commit message alone. → keep Gotchas only when non-obvious from the artifact-under-review.
 
+**Operator questions (holds).** A task that depends on a question only the operator can answer carries the field `**Blocked-on question:** <id>` (a peer of Status / Priority / Refs, never a `###` section). It is not built until a line in this file's `## Lifted holds` section lifts it: `- <id> lifted-by: user@WR-<seconds> -- "<verbatim quote>" -- <date>`, citing the operator's answer as a ruling recorded with `ruled` in `docs/working/<feature-id>/rulings.md`. A task with no such dependency carries no field.
+
 **Close-of-task review** (run before changing Status to Done):
 
 1. **Leak scan.** Read the entry. Any sentence reading as a forward-looking rule (words: `must`, `always`, `never`, `frozen`, `convention`, `spec change`)? Move that content to the relevant ADR. Leave only a `Refs:` pointer in the task.
@@ -117,3 +119,6 @@ Plus optional one-liners for spec edits. No file enumeration (git is canonical).
 ...
 
 ---------------------------------------
+
+## Lifted holds
+<!-- One line per lifted `Blocked-on question` marker; see the holds paragraph above. Empty until a hold is lifted. -->
