@@ -56,6 +56,10 @@ Report what moved, was added, or was cut before saving.
 
 **`Refs:` discipline.** Mandatory when the task creates or edits an ADR / feature-spec - list all touched paths there. Empty otherwise.
 
+**`Covers:` discipline.** One line right after `**Refs:**`, written when the task is authored (`/said:architect` or `/said:add-task`): the ids the task discharges, separated by `, ` (a ruling `WR-<seconds>`, a todo or backlog entry `@<ms>`, a UX rule `<rules-file>#<rule-id>`, a source anchor `<file>#<heading-id>` where the heading id is the heading's slug), or `none`. Never a bare `R-` id: applied earned rules go in the `Rules applied` line of `### Fix`. `/said:review-qa` reads every cited id and fails one that is stale.
+
+**Feature close.** When the last task is Done, Inspect runs `/said:review-feature` first (it spawns the `said:feature-reviewer` agent, which reads the feature's sources, the spec and every task's `Covers:` ids against the build, one row per source item), then `/said:review-qa` and `/said:accept`. `/said:debrief` then appends the `## Debrief close` footer: its heading and one line; the account lives in `docs/working/<feature-id>/debrief.md`, never in this log.
+
 ---
 
 ## Summary Table
@@ -71,6 +75,7 @@ Report what moved, was added, or was cut before saving.
 **Status:** (Todo | Done | Canceled | Backlog) (YYYY-MM-DD)
 **Priority:** (High | Medium | Low)
 **Refs:** (ADR / feature-spec paths the task created or edited; mandatory when the task touches any, otherwise empty)
+**Covers:** (the ids this task discharges, separated by `, `, or `none`)
 
 ### Problem
 [What needs to be solved? Include context - why is this an issue? For bugs, add a `### Root cause` subsection.]
@@ -105,6 +110,7 @@ Plus optional one-liners for spec edits. No file enumeration (git is canonical).
 **Status:** Todo
 **Priority:** Medium
 **Refs:**
+**Covers:**
 
 ### Problem
 ...
@@ -119,6 +125,9 @@ Plus optional one-liners for spec edits. No file enumeration (git is canonical).
 ...
 
 ---------------------------------------
+
+## Debrief close (YYYY-MM-DD)
+<!-- Written by /said:debrief: the heading and one line, `- Close <n>: <first close, <count> tasks | reopen of <task ids>>; account in debrief.md, Close <n>`. A task closed below the last footer is a reopen, closed by the next footer. -->
 
 ## Lifted holds
 <!-- One line per lifted `Blocked-on question` marker; see the holds paragraph above. Empty until a hold is lifted. -->

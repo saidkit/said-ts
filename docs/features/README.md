@@ -14,9 +14,9 @@ Feature specs and append-only task logs live here.
 
 Feature authoring principles per SAID workflow:
 
-- **New feature**: `/said:architect <scope-path>` - Phase 2 (Architect) generates spec + initial tasks log from a scope.md
+- **New feature**: `/said:architect <scope-path>` - Act's Architect step generates spec + initial tasks log from a scope.md
 - **New task on existing feature**: `/said:add-task <feature-id> [bug] [app=<APP>] [priority=High|Medium|Low]`
-- **Implement**: `/said:impl <task-id>` - drives Phase A (Classify + Inventory) → Phase B (Implement) → Phase C (Verify + close)
+- **Act**: `/said:impl <task-id>` - drives Phase A (Classify + Inventory) → Phase B (Build) → Phase C (Verify + close)
 
 ## Related
 
