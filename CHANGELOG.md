@@ -2,6 +2,11 @@
 
 The releases of this TypeScript SAID starter, newest first. A cloned project records which release it is based on in its `## Lane` block (`SAID.version:`, the line under `SAID.lane:`); this file says what each release is. Versions follow [semver](https://semver.org/).
 
+## said-ts@0.3.0 - 2026-11-22
+
+- The `## Lane` block is stamped `said@0.28.0`.
+- The SAID phases are named Scope, Act, Inspect, Debrief in the workflow section; the numbered phases are gone.
+
 ## said-ts@0.2.0 - 2026-11-04
 
 - The `## Lane` block is stamped `said@0.26.0`: the lane passes the said upgrade checks up to that release.

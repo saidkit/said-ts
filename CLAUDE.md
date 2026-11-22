@@ -5,8 +5,8 @@
 Single lane — this project is one lane. Every path below is relative to this lane's root.
 
 - SAID.lane:         said-ts
-- SAID.version:      said@0.26.0
-- SAID.starter:      said-ts@0.2.0
+- SAID.version:      said@0.28.0
+- SAID.starter:      said-ts@0.3.0
 - SAID.docs-root:    docs/
 - SAID.mounts:       [server/]
 - SAID.feature-spec: docs/features/<id>.md
@@ -132,11 +132,11 @@ cd server && make db-studio      # Storage DB layer: Open Prisma Studio
 This template is the **context spine** (`docs/conventions.md`, `docs/adr/`, `docs/features/`, `docs/wokring/`); the **`said:` plugin** drives the phases *over* that spine. Each command reads/writes the specific part of the context - invoke the phase you're in.
 
 - **Triage** (find where a bug/behavior lives) → `/said:triage`
-- **Phase 1 - Scope** → `/said:scope-refine` (from a handoff / current branch) or `/said:scope-grill` (ideate a thin idea) → writes `docs/working/<feature>/scope.md`
-- **Phase 1.5 - Spec TOC** → `/said:uxtoc` (descriptive outline of a UX spec, for fast iteration)
-- **Phase 2 - Act** -> `/said:architect` the spec + task log, `/said:add-task` for new tasks mid-flight; then `/said:impl` (drive a task `Todo -> Done` under TDD), `/said:review-ux` (per-task UX gate for web/UI)
-- **Phase 3 - Inspect** -> `/said:review-feature` (the sources read against the build), then `/said:review-qa` (quality gates + `### Fix` integrity), then `/said:accept` (acceptance-criteria contract)
-- **Phase 4 - Debrief** → `/said:debrief` (feature retro; backport lessons into `docs/adr/` + `docs/conventions.md`)
+- **Scope** → `/said:scope-refine` (from a handoff / current branch) or `/said:scope-grill` (ideate a thin idea) → writes `docs/working/<feature>/scope.md`
+- **Spec TOC** → `/said:uxtoc` (descriptive outline of a UX spec, for fast iteration)
+- **Act** -> `/said:architect` the spec + task log, `/said:add-task` for new tasks mid-flight; then `/said:impl` (drive a task `Todo -> Done` under TDD), `/said:review-ux` (per-task UX gate for web/UI)
+- **Inspect** -> `/said:review-feature` (the sources read against the build), then `/said:review-qa` (quality gates + `### Fix` integrity), then `/said:accept` (acceptance-criteria contract)
+- **Debrief** → `/said:debrief` (feature retro; backport lessons into `docs/adr/` + `docs/conventions.md`)
 
 The **Workflow Process** above is the lightweight per-change loop; the `said:` phases are the full feature lifecycle. Both land in the same spine.
 
